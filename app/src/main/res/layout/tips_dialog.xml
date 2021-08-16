@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:text="Enter Tip Amount"
+           android:textAlignment="center"
+           android:paddingTop="18dp"
+           android:paddingBottom="8dp"
+           android:textSize="20dp"
+           />
+
+
+        <EditText
+            android:id="@+id/otherTipAmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:digits="0123456789."
+            android:gravity="start|top"
+            android:inputType="numberDecimal"
+            android:text="$0.00"
+            android:maxLength="7"
+            android:padding="10dp"
+            android:focusableInTouchMode="true"
+            android:textSize="24dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/confirm"
+            style="@style/MyEditTextStyle"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_bg_round"
+            android:layout_margin="5dp"
+            android:text="OK"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

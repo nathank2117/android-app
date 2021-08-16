@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+        <EditText
+            android:id="@+id/deliveryAddressName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="start|top"
+            android:hint="Save as"
+            android:padding="10dp"
+            android:focusableInTouchMode="true"
+            android:textSize="18dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/cancel"
+            style="@style/MyEditTextStyle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:background="@color/quantum_googred"
+            android:layout_margin="5dp"
+            android:focusedByDefault="true"
+            android:text="No"
+            android:textSize="18dp"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textStyle="bold" />
+        <Button
+        android:id="@+id/confirm"
+        style="@style/MyEditTextStyle"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@color/quantum_googgreen"
+        android:layout_margin="5dp"
+        android:text="Yes"
+        android:textSize="18dp"
+        android:textAlignment="center"
+            android:focusedByDefault="true"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textStyle="bold" />
+
+    </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

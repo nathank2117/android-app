@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AppTheme"
+    android:id="@+id/appbarlt"
+    android:minHeight="?attr/actionBarSize">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:weightSum="2">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome2iperkz"
+
+        android:layout_gravity="right"
+        android:id="@+id/toolbar_title"
+        android:textStyle="bold"
+        android:textSize="18dp"
+
+        android:textColor="@android:color/black"/>
+
+    <ImageView
+        android:id="@+id/infoView"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@android:drawable/ic_dialog_info"
+        android:backgroundTint="@color/black_overlay"
+        android:paddingLeft="3dp"
+        android:paddingTop="3dp"
+        android:paddingRight="3dp"
+        android:paddingBottom="3dp"
+        android:scaleType="centerInside" />
+</LinearLayout>
+</androidx.appcompat.widget.Toolbar>

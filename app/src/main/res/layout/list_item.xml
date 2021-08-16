@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <RadioButton
+        android:id="@+id/selectRadioAddition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="0dp"
+        android:buttonTint="@android:color/holo_blue_dark"
+        android:visibility="gone"
+        android:focusable="false"></RadioButton>
+
+    <CheckBox
+        android:id="@+id/selectAddition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="0dp"
+        android:visibility="gone"
+        android:buttonTint="@android:color/holo_blue_dark"
+        android:focusable="false"></CheckBox>
+
+
+    <TextView
+        android:id="@+id/expandedListItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        tools:text="Egg Salad" />
+
+    <TextView
+        android:id="@+id/extraItemPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:gravity="right"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        tools:text="$ 7.99" />
+
+</LinearLayout>
+

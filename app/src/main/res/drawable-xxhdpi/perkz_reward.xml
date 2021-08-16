@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+<!--  <item android:drawable="@drawable/perkz_1" android:duration="200" />
+    <item android:drawable="@drawable/perkz_2" android:duration="200" />-->
+    <item android:drawable="@drawable/perkz_3" android:duration="200" />
+   <!-- <item android:drawable="@drawable/perkz_4" android:duration="200" />-->
+    <item android:drawable="@drawable/perkz_5" android:duration="200" />
+  <!--  <item android:drawable="@drawable/perkz_6" android:duration="100" />-->
+    <item android:drawable="@drawable/perkz_7" android:duration="100" />
+   <!-- <item android:drawable="@drawable/perkz_8" android:duration="100" />-->
+    <item android:drawable="@drawable/perkz_9" android:duration="100" />
+   <!-- <item android:drawable="@drawable/perkz_10" android:duration="100" />-->
+   <item android:drawable="@drawable/perkz_11" android:duration="100" />
+    <!--<item android:drawable="@drawable/perkz_12" android:duration="100" />
+    <item android:drawable="@drawable/perkz_13" android:duration="100" />
+    <item android:drawable="@drawable/perkz_14" android:duration="100" />
+    <item android:drawable="@drawable/perkz_15" android:duration="100" />
+    <item android:drawable="@drawable/perkz_16" android:duration="100" />-->
+</animation-list>

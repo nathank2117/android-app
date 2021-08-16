@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:title="@string/breaksfast"
+            android:id="@+id/topNavigationBreakfastMenuId"
+            android:icon="@drawable/ic_dinner"/>
+    <item android:title="@string/lunch"
+        android:id="@+id/topNavigationLunchMenuId"
+        android:icon="@drawable/ic_dinner" />
+    <item android:title="@string/allday"
+        android:id="@+id/topNavigationAlldayMenuId"
+        android:icon="@drawable/ic_dinner"/>
+</menu>

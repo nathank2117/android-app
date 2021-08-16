@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.appisoft.iperkz.activity.PaymentActivity"
+    >
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <TextView
+        android:id="@+id/regTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="5dp"
+        android:text="Contact Information"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/regCustomerFirstname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:textSize="14dp"
+        android:inputType="textPersonName"
+        android:hint="First Name"
+        android:drawableLeft="@drawable/ic_person_outline_black_24dp"
+        android:drawablePadding="2dp"
+        android:drawableStart="@drawable/ic_person_outline_black_24dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regTitle" />
+
+    <EditText
+        android:id="@+id/regCustomerLastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="14dp"
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="textPersonName"
+        android:drawableLeft="@drawable/ic_person_outline_black_24dp"
+        android:drawablePadding="2dp"
+        android:drawableStart="@drawable/ic_person_outline_black_24dp"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regCustomerFirstname" />
+
+    <EditText
+        android:id="@+id/regCustomerEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="24dp"
+        android:hint="@string/prompt_email"
+        android:textSize="14dp"
+        android:ems="10"
+        android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
+        android:drawablePadding="2dp"
+        android:drawableStart="@drawable/ic_mail_outline_black_24dp"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regCustomerLastname" />
+
+    <LinearLayout
+        android:id="@+id/chooseOptionsLT"
+        app:layout_constraintTop_toBottomOf="@+id/regCustomerEmail"
+        app:layout_constraintBottom_toTopOf="@+id/addressBar"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="17dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<TextView
+    android:id="@+id/chooseOptionsLbl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAlignment="viewStart"
+    android:text="Choose Options"
+    android:textColor="#000000"
+    android:textSize="18dp"
+    >
+</TextView>
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/ooptions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chooseOptionsLbl" />
+        <LinearLayout
+            android:id="@+id/ooptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="right"
+            >
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/tableLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="Table #"
+                android:visibility="visible"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                app:layout_constraintEnd_toStartOf="@+id/tableNumber"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+            <EditText
+                android:id="@+id/tableNumber"
+                style="@style/MyEditTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="2dp"
+                android:visibility="visible"
+                android:padding="0dp"
+                android:maxLength="4"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+                app:layout_constraintEnd_toStartOf="@+id/radioGroup1"
+                />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioGroup1"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="0dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+                <RadioButton
+                    android:id="@+id/radioButtonDineIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Dine In" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonTakeout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Take out" />
+                <RadioButton
+                    android:id="@+id/radioButtonDelivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Delivery" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/addressBar"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/chooseOptionsLT"
+        app:layout_constraintBottom_toTopOf="@+id/datetimepicker"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Spinner
+            android:id="@+id/addressSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <fragment
+            android:id="@+id/autocomplete_fragment2"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/datetimepicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="left"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/chooseOptionsLT"
+        app:layout_constraintBottom_toTopOf="@+id/paymentModeTitle">
+        <TextView
+            android:id="@+id/deldatelabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Delivery Date: "
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textAlignment="center"
+            />
+        <com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker
+            android:id="@+id/single_day_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:picker_itemSpacing="3dp"
+            app:picker_curvedMaxAngle="45"
+            app:picker_curved="true"
+            app:picker_selectorColor="@android:color/transparent"
+            app:picker_stepSizeHours="1"
+            app:picker_stepSizeMinutes="5"
+            app:picker_cyclic="false"
+            app:picker_dayCount="31"
+            app:picker_mustBeOnFuture="true"
+            app:picker_visibleItemCount="2"
+            app:picker_textSize="16dp"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/delText"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/datetimepicker"
+        app:layout_constraintBottom_toTopOf="@+id/paymentModeTitle">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textStyle="italic"
+            android:gravity="center_horizontal"
+            android:textSize="14dp"
+            android:text="Same day Delivery is currently not available."
+            />
+
+        <TextView
+            android:id="@+id/freemaxOrderTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/quantum_googblue"
+            android:textStyle="italic"
+            android:textSize="14dp"
+            android:gravity="center_horizontal"
+            android:text="Order more than $30, get Free Delivery."/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/paymentModeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="Payment "
+        android:textColor="#000000"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroup"
+
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delText" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delText">
+
+        <RadioButton
+            android:id="@+id/radioButtonCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+           android:text="Card" />
+
+        <RadioButton
+            android:id="@+id/radioButtonCash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cash" />
+    </RadioGroup>
+
+
+
+
+    <com.stripe.android.view.CardInputWidget
+        android:id="@+id/cardInputWidget"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+
+
+    <Button
+        android:id="@+id/placeOrderButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layout_bg_round"
+        android:padding="5dp"
+        android:paddingStart="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="20dp"
+        android:paddingRight="20dp"
+        android:visibility="gone"
+        android:paddingBottom="5dp"
+        android:text="Place Order"
+
+        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addTip" />
+
+    <CheckBox
+        android:id="@+id/futureUserCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:checked="false"
+        android:textColor="#000000"
+        android:text="Use this card future orders."
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardInputWidget" />
+
+    <TextView
+        android:id="@+id/transactionFeeMessg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:maxLines="3"
+        android:text="As per the store owner policy, credit card transaction fee will be charged."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/futureUserCheckBox" />
+
+    <LinearLayout
+        android:id="@+id/addTip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="visible"
+        android:weightSum="5"
+        app:layout_constraintTop_toBottomOf="@+id/transactionFeeMessg"
+        >
+        <LinearLayout
+            android:id="@+id/noTipLT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tip_box_border_highlight"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:visibility="visible">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="No "
+                android:textSize="14dp"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Tip"
+                android:textSize="14dp"
+                android:textAlignment="center"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Tip1Lt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tip_box_border"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_weight="1"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/Tip1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25%"
+                android:textSize="14dp"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/Tip1Amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="$2.23"
+                android:textColor="@color/quantum_googred"
+                android:textSize="14dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Tip2Lt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tip_box_border"
+            android:orientation="vertical"
+            android:layout_marginStart="5dp"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:visibility="visible"
+            >
+
+            <TextView
+                android:id="@+id/Tip2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20%"
+                android:textSize="14dp"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/Tip2Amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="$1.83"
+                android:textColor="@color/quantum_googred"
+                android:textSize="14dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Tip3Lt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tip_box_border"
+            android:orientation="vertical"
+            android:layout_marginStart="5dp"
+            android:padding="10dp"
+            android:visibility="visible"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:id="@+id/Tip3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18%"
+                android:textSize="14dp"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/Tip3Amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/quantum_googred"
+                android:text="$1.33"
+                android:layout_gravity="right"
+                android:textSize="14dp"
+                android:visibility="visible" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/Tip4LT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/tip_box_border"
+            android:visibility="visible"
+            android:layout_marginStart="5dp"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other"
+                android:textSize="14dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textAlignment="gravity"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/payButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/layout_bg_round"
+        android:padding="5dp"
+        android:paddingStart="20dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="5dp"
+        android:text="Pay"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        app:layout_constraintEnd_toEndOf="@+id/cardInputWidget"
+        app:layout_constraintStart_toStartOf="@+id/cardInputWidget"
+        app:layout_constraintTop_toBottomOf="@+id/addTip" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "934949116876",
+    "firebase_url": "https://iperkz-77e5f.firebaseio.com",
+    "project_id": "iperkz-77e5f",
+    "storage_bucket": "iperkz-77e5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934949116876:android:242a530ca9d38ca7341b69",
+        "android_client_info": {
+          "package_name": "com.appisoft.perkz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934949116876-afgusk0mslr2f182kdon53c2e7jdgrob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAulNzMQQbgQ-rqp1IfLjQelRIoet5mWMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934949116876-afgusk0mslr2f182kdon53c2e7jdgrob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

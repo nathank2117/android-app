@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <ImageView
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="2dp"
+        android:onClick="cancel"
+        android:src="@android:drawable/ic_delete" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Do you want to leave a tip?"
+            android:textAlignment="center"
+            android:paddingTop="18dp"
+            android:paddingBottom="8dp"
+            android:textSize="20dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/addTip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="visible"
+        android:weightSum="4"
+        >
+            <LinearLayout
+                android:id="@+id/noTipLT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tip_box_border_highlight"
+                android:orientation="vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:visibility="visible">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="No "
+                    android:textAlignment="center"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Tip"
+                    android:textAlignment="center"
+                    />
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Tip1Lt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tip_box_border"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_weight="1"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/Tip1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25%"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/Tip1Amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="$2.23"
+                android:textColor="@color/quantum_googred"
+                android:textSize="14dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Tip2Lt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tip_box_border"
+            android:orientation="vertical"
+            android:layout_marginStart="5dp"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/Tip2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20%"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/Tip2Amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="$1.83"
+                android:textColor="@color/quantum_googred"
+                android:textSize="14dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Tip3Lt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tip_box_border"
+            android:orientation="vertical"
+            android:layout_marginStart="5dp"
+            android:padding="10dp"
+            android:visibility="visible"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:id="@+id/Tip3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18%"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:id="@+id/Tip3Amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/quantum_googred"
+                android:text="$1.33"
+                android:layout_gravity="right"
+                android:textSize="14dp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:text="Other Amount?"
+           android:textAlignment="center"
+           android:paddingTop="18dp"
+           android:paddingBottom="8dp"
+           android:textSize="20dp"
+           />
+
+
+        <EditText
+            android:id="@+id/otherTipAmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:digits="0123456789."
+            android:text="$0.00"
+            android:gravity="start|top"
+            android:inputType="numberDecimal"
+            android:maxLength="7"
+            android:padding="10dp"
+            android:textSize="18dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/payTipTotal"
+            style="@style/MyEditTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_bg_round"
+            android:layout_margin="5dp"
+            android:text="$35.00"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
+            android:textStyle="bold" />
+    </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

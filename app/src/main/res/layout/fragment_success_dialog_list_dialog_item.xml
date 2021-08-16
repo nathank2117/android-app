@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.appisoft.iperkz.activity.ViewCartBannerFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+             android:paddingLeft="@dimen/list_item_spacing"
+            android:paddingTop="@dimen/list_item_spacing_half"
+            android:paddingRight="@dimen/list_item_spacing"
+            android:paddingBottom="@dimen/list_item_spacing_half"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#FFFFFF"
+            tools:text="Hello" />
+
+        <TextView
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_weight="9"
+            android:paddingTop="@dimen/list_item_spacing_half"
+            android:clickable="true"
+            android:paddingBottom="@dimen/list_item_spacing_half"
+            android:onClick="moveToHomePage"
+            android:paddingRight="3dp"
+            android:text="@string/close_link"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</FrameLayout>

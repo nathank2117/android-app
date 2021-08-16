@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">iPerkz</string>
+    <string name="edit_message">Search Menu</string>
+    <string name="button_send">Send</string>
+    <string name="app_label">app Label</string>
+    <string name="search_hint">Search Menu &amp; Specials</string>
+    <string name="search_title">Seach</string>
+    <string name="home_icon_text">Home</string>
+    <string name="account_icon_text">Account</string>
+    <string name="orders_icon_text">Orders</string>
+    <string name="stores_icon_text">Stores</string>
+    <string name="breaksfast">Breakuuuuufast</string>
+    <string name="lunch">Lunchuuu</string>
+    <string name="allday">Alluuu Day</string>
+
+    <string name="title_activity_view_cart">Your Cart Details</string>
+    <string name="title_activity_payment">Your Order Details</string>
+    <string name="place_order_button">Place Order</string>
+    <string name="dummy_content">Testing</string>
+    <string name="title_activity_menu_details">MenuDetailsActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="close_link"><u>OK</u></string>
+    <string name="title_activity_otp"></string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="welcome2iperkz">"Welcome to iPerkz!"</string>
+    <string name="invalid_firstname">Not a valid firstname</string>
+    <string name="invalid_lastname">Not a valid lastname</string>
+    <string name="invalid_email">Not a valid email</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="title_activity_validate">iPerkz - Validate</string>
+    <string name="title_activity_registration">iPerkz</string>
+    <string name="spl_instructions_positive">Close</string>
+    <string name="spl_instructions_negative">Cancel</string>
+    <string name="title_payment_screen">iPerkz - Payment</string>
+    <string name="title_stores_screen">iPerkz - Stores</string>
+    <string name="menu_item">Menu Item"</string>
+    <string-array name="distances">
+        <item>5 Miles</item>
+        <item>10 Miles</item>
+        <item>15 Miles</item>
+        <item>20 Miles</item>
+        <item>25 Miles</item>
+        <item>30 Miles</item>
+    </string-array>
+    <string name="api_key">AIzaSyDAnogJDdC8PF3p5UmLUD9SaTIuuVgYWZw</string>
+    <!-- OTP SCREEN -->
+    <string name="disclaimer_otp">You will receive an SMS from iPerkz for verification purpose. Message and Data rates may apply.</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:title="@string/home_icon_text"
+            android:id="@+id/bottomNavigationHomeMenuId"
+            android:icon="@drawable/ic_home"/>
+    <item android:title="@string/account_icon_text"
+        android:id="@+id/bottomNavigationAccountMenuId"
+        android:icon="@drawable/ic_account"/>
+    <item android:title="@string/orders_icon_text"
+        android:id="@+id/bottomNavigationOrderMenuId"
+        android:icon="@drawable/ic_order"/>
+    <item
+        android:id="@+id/bottomNavigationStoreMenuId"
+        android:icon="@drawable/ic_store_grid"
+        android:title="@string/stores_icon_text"
+        android:visible="true" />
+</menu>

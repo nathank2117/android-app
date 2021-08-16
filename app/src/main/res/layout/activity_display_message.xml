@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/displaymessagelt"
+    tools:context=".DisplayMessageActivity"
+   >
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#00ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/cartCardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar"
+        app:layout_constraintVertical_bias="0.684">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00ffffff"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="left"
+                android:text="Today's Deals"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <HorizontalScrollView
+                android:id="@+id/myView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="#00ffffff"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                <LinearLayout
+                    android:id="@+id/testId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#00ffffff"
+                    android:orientation="horizontal">
+
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/all_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:gravity="left"
+                android:text="Menu"
+                android:textColor="#3F51B5"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myView" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="horizontal"
+                android:weightSum="3"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/all_menu">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1">
+
+                    <ImageButton
+
+                        android:id="@+id/imageButtonBreakfast"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:onClick="showBreakfastDetails"
+                        android:scaleType="fitXY"
+                        />
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="120dp"
+                            android:background="@android:color/holo_orange_dark"
+                            android:backgroundTint="#99EF6C00"
+                            android:visibility="gone"
+                            android:gravity="center"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="10dp"
+                            android:text="Groceries"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    <ProgressBar
+                        android:id="@+id/loading1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#CCCCCC">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonLunch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:onClick="showLunchDetails"
+                        android:scaleType="fitXY"
+                         />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="120dp"
+                        android:background="@android:color/holo_green_dark"
+                        android:backgroundTint="#992E7D32"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center"
+                        android:text="Spices"
+                        android:textColor="#000000"
+                        android:visibility="gone"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                    <ProgressBar
+                        android:id="@+id/loading2"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    >
+
+                    <ImageButton
+                        android:id="@+id/imageButtonAllDay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:onClick="showAllDayDetails"
+                        android:scaleType="fitXY"
+                        />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="120dp"
+                        android:background="@android:color/holo_red_dark"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="10dp"
+                        android:backgroundTint="#99C62828"
+                        android:gravity="center"
+                        android:text="Other"
+                        android:textColor="#000000"
+                        android:visibility="gone"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                    <ProgressBar
+                        android:id="@+id/loading3"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <fragment android:name="com.appisoft.iperkz.activity.ViewCartBannerFragment"
+        android:id="@+id/cartCardView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:onClick="showCartDetails"
+        app:cardBackgroundColor="#3F51B5"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+    android:id="@+id/bottomNavigationView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+    android:layout_gravity="bottom"
+    app:menu="@menu/bottom_navigation_menu"
+    app:layout_constraintBottom_toBottomOf="parent" >
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

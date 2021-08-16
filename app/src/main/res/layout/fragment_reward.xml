@@ -1,0 +1,78 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2196F3"
+    tools:context="com.appisoft.iperkz.activity.RewardFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/RewardImage"
+            android:layout_width="match_parent"
+            android:layout_height="264dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.582"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.421" />
+
+        <TextView
+            android:id="@+id/rewardTextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:paddingStart="3dp"
+            android:paddingLeft="3dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="3dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="3dp"
+            android:singleLine="true"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/rewardText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="3dp"
+            android:paddingLeft="3dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="3dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="3dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
+        <Button
+            android:id="@+id/closebtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView12"
+            android:background="#FFFF00"
+            android:clickable="true"
+            android:text="Close"
+            android:textColor="#000000"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/RewardImage"
+            app:layout_constraintVertical_bias="0.8"
+            tools:layout_editor_absoluteX="20dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
