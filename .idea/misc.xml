@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable-xxhdpi/tip_box_border.xml" value="0.11145833333333334" />
+        <entry key="app/src/main/res/layout/activity_account.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_display_message.xml" value="0.1793478260869565" />
+        <entry key="app/src/main/res/layout/activity_payment.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_registration.xml" value="0.11458333333333333" />
+        <entry key="app/src/main/res/layout/activity_registration_new.xml" value="0.11458333333333333" />
+        <entry key="app/src/main/res/layout/activity_validate_otp.xml" value="0.11458333333333333" />
+        <entry key="app/src/main/res/layout/activity_view_cart.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/dinein_allowed_dialog.xml" value="0.14739583333333334" />
+        <entry key="app/src/main/res/layout/error_dialog.xml" value="0.14791666666666667" />
+        <entry key="app/src/main/res/layout/fragment_reward.xml" value="0.12239583333333333" />
+        <entry key="app/src/main/res/layout/perkz_redeemed_dialog.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
