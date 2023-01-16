@@ -19,10 +19,8 @@
         android:layout_gravity="right"
         android:id="@+id/toolbar_title"
         android:textStyle="bold"
-        android:textSize="18dp"
-
+        android:textSize="22dp"
         android:textColor="@android:color/black"/>
-
     <ImageView
         android:id="@+id/infoView"
         android:layout_width="25dp"

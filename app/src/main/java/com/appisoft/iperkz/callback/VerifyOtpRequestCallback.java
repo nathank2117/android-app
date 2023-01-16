@@ -125,9 +125,13 @@ public class VerifyOtpRequestCallback extends UrlRequest.Callback {
 
 
                 if (statusResponse.isResult() == true) {
-                    loginResult.setValue(new LoginResult(new LoggedInUserView("test")));
+                    LoggedInUserView lUserView = new LoggedInUserView("test");
+                    lUserView.setPerkzStatus(statusResponse.getMessage());
+                    loginResult.setValue(new LoginResult(lUserView));
                 } else {
-                    loginResult.setValue(new LoginResult(R.string.login_failed));
+                    LoggedInUserView lUserView = new LoggedInUserView("login_failed");
+                    lUserView.setPerkzStatus(statusResponse.getMessage());
+                    loginResult.setValue(new LoginResult(lUserView));
                 }
 
             }

@@ -37,6 +37,9 @@ import java.util.concurrent.Executors;
 
 public class ErrorDialog extends DialogFragment {
     private String errorMessage;
+    private String titleMessage;
+    private String buttonText;
+
     private PaymentActivity paymentActivity;
     private LoginRepository loginRepository = LoginRepository.getInstance(new LoginDataSource());
     public ErrorDialog(String message, PaymentActivity paymentActivity) {

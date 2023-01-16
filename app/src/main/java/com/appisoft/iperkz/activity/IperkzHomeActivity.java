@@ -745,7 +745,7 @@ public class IperkzHomeActivity extends AppCompatActivity {
 
         for(Setting setting : settings){
 
-            if(setting.getKey().equals("main-banner")){
+            if(setting.getKey().equals("main-banner-android")){
                 bannerUrl = setting.getValue();
             }
 

@@ -38,7 +38,7 @@ import com.appisoft.iperkz.entity.UserLocation;
 import com.appisoft.iperkz.entity.uploader.ByteBufferUploadProvider;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.appisoft.iperkz.callback.RewardsAllRequestCallback;
 import org.chromium.net.CronetEngine;
 import org.chromium.net.UploadDataProvider;
 import org.chromium.net.UrlRequest;
@@ -317,6 +317,26 @@ public class LoginDataSource {
 
             Executor executor = Executors.newSingleThreadExecutor();
             String url = Data.SERVER_URL + "/api/perkz/"+customerEntity.getStoreId()+"/"+customerEntity.getCustomerId();
+            UrlRequest.Builder requestBuilder = cronetEngine.newUrlRequestBuilder(
+                    url, rewardsRequestCallback, executor);
+
+            UrlRequest request = requestBuilder.build();
+            request.start();
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void retrieveAllRewards(CustomerEntity customerEntity, Context context, MutableLiveData<Reward[]> rewards ) {
+
+        try {
+            CronetEngine cronetEngine = Cronet.getCronetEngine(context);
+            RewardsAllRequestCallback rewardsRequestCallback =
+                    new RewardsAllRequestCallback(context, rewards);
+
+            Executor executor = Executors.newSingleThreadExecutor();
+            String url = Data.SERVER_URL + "/api/allperkz/"+customerEntity.getCustomerId();
             UrlRequest.Builder requestBuilder = cronetEngine.newUrlRequestBuilder(
                     url, rewardsRequestCallback, executor);
 

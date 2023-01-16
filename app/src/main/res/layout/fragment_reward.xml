@@ -26,7 +26,7 @@
             app:layout_constraintVertical_bias="0.421" />
 
         <TextView
-            android:id="@+id/rewardTextTitle"
+            android:id="@+id/rewardTextTitleDownload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
@@ -42,7 +42,23 @@
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18dp"
             android:textStyle="bold" />
-
+        <TextView
+            android:id="@+id/rewardTextTitleGroceries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:paddingStart="3dp"
+            android:paddingLeft="3dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="3dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="3dp"
+            android:singleLine="true"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textSize="18dp"
+            android:textStyle="bold" />
         <TextView
             android:id="@+id/rewardText"
             android:layout_width="match_parent"

@@ -9,9 +9,11 @@
     android:orientation="vertical"
     android:weightSum="10"
     tools:context="com.appisoft.iperkz.activity.IperkzHomeActivity">
+
     <include
         android:id="@+id/tool_bar"
-        layout="@layout/app_bar"/>
+        layout="@layout/app_bar"
+        android:layout_height="32dp" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,8 +31,9 @@
             android:textAlignment="center"
             android:clickable="true"
             android:textColor="@color/quantum_black_100"
-            android:textSize="14dp"
-            android:textStyle="bold" />
+            android:textSize="18dp"
+            android:textStyle="bold"
+           />
 
         <ImageView
             android:id="@+id/locAddressBtn"

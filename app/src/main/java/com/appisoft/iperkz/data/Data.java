@@ -1,5 +1,7 @@
 package com.appisoft.iperkz.data;
 
+import android.graphics.Bitmap;
+
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
@@ -37,15 +39,15 @@ public class Data extends BaseObservable {
     private ArrayList<FoodItem> selectedMenuItems = new ArrayList<>();
     public static final String ENVIRONMENT = "";
 
-
-
     //public static final String SERVER_URL="http://10.0.2.2:8080";
-    //public static final String SERVER_URL="http://192.168.1.15:8080";
-    //public static final String SERVER_URL="http://18.190.150.175:8080";
+
+     //public static final String SERVER_URL="http://192.168.1.233:8080";
+
+   // public static final String SERVER_URL="http://192.168.1.156:8080";
     //public static final String SERVER_URL="http://3.20.229.224:8080";
     //DEV server
     //public static final String SERVER_URL="http://52.14.171.13:8080";
-    public static final String SERVER_URL="https://dev.iperkz.com";
+     public static final String SERVER_URL="https://portal.iperkz.com";
 
     //DEMO server
 
@@ -250,6 +252,7 @@ public class Data extends BaseObservable {
     public ArrayList<FoodItem> getSelectedMenuItems() {
         return selectedMenuItems;
     }
+
 
     public FoodItem[] getOrderedItems() {
         return selectedMenuItems.toArray(new FoodItem[selectedMenuItems.size()]);

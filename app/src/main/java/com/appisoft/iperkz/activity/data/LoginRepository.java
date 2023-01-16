@@ -27,7 +27,7 @@ import com.appisoft.iperkz.entity.UserLocation;
 public class LoginRepository {
 
     private static volatile LoginRepository instance;
-
+    public Reward reward = null;
     private LoginDataSource dataSource;
     private String phoneNumber = "";
     // If user credentials will be cached in local storage, it is recommended it be encrypted
@@ -121,6 +121,11 @@ public class LoginRepository {
     public void retrieveRewards( CustomerEntity customerEntity, Context context, MutableLiveData<Reward> reward) {
         // handle login
         dataSource.retrieveRewards(customerEntity, context, reward);
+    }
+
+    public void retrieveAllRewards( CustomerEntity customerEntity, Context context, MutableLiveData<Reward[]> rewards) {
+        // handle login
+        dataSource.retrieveAllRewards(customerEntity, context, rewards);
     }
 
     public void getInStoreResult(UserLocation userLocation, Context context, MutableLiveData<SimpleResponse> inStoreResult) {

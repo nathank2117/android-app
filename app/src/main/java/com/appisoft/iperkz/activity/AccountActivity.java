@@ -1,9 +1,11 @@
 package com.appisoft.iperkz.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +20,9 @@ import com.appisoft.iperkz.activity.data.LoginRepository;
 import com.appisoft.iperkz.activity.ui.login.LoginViewModel;
 import com.appisoft.iperkz.activity.ui.login.LoginViewModelFactory;
 import com.appisoft.iperkz.adapter.BottomNavigationHandler;
+import com.appisoft.iperkz.data.Data;
 import com.appisoft.iperkz.entity.CustomerEntity;
+import com.appisoft.iperkz.entity.PastOrderItem;
 import com.appisoft.iperkz.entity.Reward;
 import com.appisoft.iperkz.entity.Store;
 import com.appisoft.iperkz.util.Util;
@@ -45,6 +49,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         final TextView storeNameTextView = findViewById(R.id.storeName);
         final TextView addressTextView = findViewById(R.id.addressTextView);
         final TextView availableCredits = findViewById(R.id.availableRewards);
+        final TextView availableCreditsGroceries = findViewById(R.id.availableRewardsGroceries);
 
         termsLink = findViewById(R.id.termsLink);
         termsLink.setClickable(true);
@@ -67,13 +72,50 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
             address += store.getState();
             address += "\n Phone #: +1 "+store.getPhone();
             addressTextView.setText(address);
+            loginViewModel.retrieveAllRewards(loginRepository.getCustomerEntity(), this);
+            loginViewModel.getPerkzList().observe(this, new Observer<Reward[]>() {
+                @Override
+                public void onChanged(@Nullable Reward[] rewards) {
+                    availableCredits.setText("Available Credits (Restaurants): $ 0.00");
+                    availableCreditsGroceries.setText("Available Credits (Groceries): $ 0.00");
+                    if (rewards == null || rewards.length == 0 ) {
+                        availableCredits.setText("Available Credits (Restaurants): $ 0.00");
+                        availableCreditsGroceries.setText("Available Credits (Groceries): $ 0.00");
+                    } else {
+                        for (Reward reward : rewards) {
+                            Double claimedReward = 0.0;
+                            if (reward.getClaimedReward() != null ) {
+                                claimedReward = reward.getClaimedReward();
+                            }
+                            if (reward.getPerkzType().equalsIgnoreCase( "APP_DOWNLOAD" )) {
+                                availableCredits.setText("Available Credits (Restaurants): $ " + Util.getFormattedDollarAmt(reward.getReward() - claimedReward));
+                                //   availableCredits.setText("Available Credits (Restaurants)");
+                            } else if (reward.getPerkzType().equalsIgnoreCase( "FIRST_GROCERY_ORDER" )) {
+                                availableCreditsGroceries.setText("Available Credits (Groceries): $ " + Util.getFormattedDollarAmt(reward.getReward() - claimedReward));
+                                //   availableCreditsGroceries.setText("Available Credits (Groceries):");
+                            }
+                        }
+                        //loginViewModel.retrieveRewards(customer, this);
+                    }
+                }
+            });
+            /*
+            loginViewModel.getReward().observe(this, new Observer<Reward>() {
+                @Override
+                public void onChanged(Reward reward) {
 
-            loginViewModel.retrieveRewards(customer, this);
+                    if (reward == null) {
+                        System.out.println("test");
+                        return;
+                    }
+
+            });
+*/
 
         } catch(Exception e) {
 
         }
-
+            /*
              loginViewModel.getReward().observe(this, new Observer<Reward>() {
             @Override
             public void onChanged(Reward reward) {
@@ -91,6 +133,8 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         });
+
+             */
     }
 
     @Override

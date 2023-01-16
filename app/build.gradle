@@ -13,8 +13,8 @@ android {
         applicationId "com.appisoft.perkz"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 200
-        versionName "2.0"
+        versionCode 409
+        versionName "4.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -55,7 +55,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-cronet:16.0.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.5'
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.stripe:stripe-android:14.3.0'
+   // implementation 'com.stripe:stripe-android:14.3.0'
+    implementation 'org.jetbrains:annotations:16.0.2'
+    implementation 'com.stripe:stripe-android:16.9.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 

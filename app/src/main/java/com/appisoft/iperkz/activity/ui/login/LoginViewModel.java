@@ -38,6 +38,7 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<SimpleResponse> offlineProcessResult = new MutableLiveData<>();
     private MutableLiveData<PastOrderItem[]> pastOrdersResult = new MutableLiveData<>();
     private MutableLiveData<Reward> reward = new MutableLiveData<>();
+    private MutableLiveData<Reward[]> perkzList = new MutableLiveData<>();
     private MutableLiveData<AddressDetail> addressDetail = new MutableLiveData<>();
     private MutableLiveData<SimpleResponse> inStoreResult = new MutableLiveData<>();
     private MutableLiveData<String> drivingDistanceResult = new MutableLiveData<>();
@@ -105,6 +106,10 @@ public class LoginViewModel extends ViewModel {
 
     public MutableLiveData<Reward> getReward() {
         return reward;
+    }
+
+    public MutableLiveData<Reward[]> getPerkzList() {
+        return perkzList;
     }
 
     public MutableLiveData<AddressDetail> getAddressDetails() {
@@ -227,6 +232,10 @@ public class LoginViewModel extends ViewModel {
 
     public void retrieveRewards( CustomerEntity customerEntity, Context context) {
         loginRepository.retrieveRewards(customerEntity, context, reward);
+    }
+
+    public void retrieveAllRewards( CustomerEntity customerEntity, Context context) {
+        loginRepository.retrieveAllRewards(customerEntity, context, perkzList);
     }
 
     public void getInStoreResult(UserLocation userLocation, Context context){

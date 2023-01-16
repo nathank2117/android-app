@@ -38,7 +38,7 @@ public class ValidateOtp extends AppCompatActivity  {
 
     private LoginViewModel loginViewModel;
     private LoginRepository loginRepository = LoginRepository.getInstance(new LoginDataSource());
-
+    private String otpVerifyResultMessage = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +88,7 @@ public class ValidateOtp extends AppCompatActivity  {
                     return;
                 }
                 loadingProgressBar.setVisibility(View.GONE);
+                otpVerifyResultMessage = loginResult.getSuccess().getPerkzStatus();
                 if (loginResult.getError() != null) {
                     showLoginFailed(loginResult.getError());
                 }
@@ -133,6 +134,8 @@ public class ValidateOtp extends AppCompatActivity  {
                     return;
                 }
                 loadingProgressBar.setVisibility(View.GONE);
+                otpVerifyResultMessage = sendOtpResult.getMessage();
+
                 if (sendOtpResult.isResult() == false) {
                     showSendOTPFailed(sendOtpResult);
                 }
@@ -164,6 +167,8 @@ public class ValidateOtp extends AppCompatActivity  {
         editor.putBoolean("REGISTERED_USER", true);
         editor.commit();
         Intent intent = new Intent(this, PaymentActivity.class);
+        intent.putExtra("isPerkzUsed", otpVerifyResultMessage);
+
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         finish();

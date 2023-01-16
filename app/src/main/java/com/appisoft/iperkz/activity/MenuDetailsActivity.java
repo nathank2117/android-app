@@ -647,6 +647,7 @@ public class MenuDetailsActivity extends AppCompatActivity implements BottomNavi
             URL url = new URL(imageUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
+            System.out.println(" VIDYA " + imageUrl);
             connection.connect();
             InputStream input = connection.getInputStream();
             Bitmap myBitmap = BitmapFactory.decodeStream(input);

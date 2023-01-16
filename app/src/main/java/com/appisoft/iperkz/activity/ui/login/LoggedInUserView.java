@@ -5,6 +5,8 @@ package com.appisoft.iperkz.activity.ui.login;
  */
 public class LoggedInUserView {
     private String displayName;
+    private String perkzStatus ="";
+
     //... other data fields that may be accessible to the UI
 
     public LoggedInUserView(String displayName) {
@@ -13,5 +15,11 @@ public class LoggedInUserView {
 
     String getDisplayName() {
         return displayName;
+    }
+    public void setPerkzStatus(String perkzStatusValue) {
+        this.perkzStatus = perkzStatusValue;
+    }
+    String getPerkzStatus() {
+        return perkzStatus;
     }
 }

@@ -121,13 +121,14 @@ import java.util.concurrent.Executors;
 
 import static com.appisoft.iperkz.util.DateUtils.getFormattedDateAndTime;
 import static com.appisoft.perkz.DisplayMessageActivity.MEAL_TYPE;
+import com.google.android.material.textfield.*;
 
 public class PaymentActivity extends AppCompatActivity {
     private String paymentIntentClientSecret = "";
     private Stripe stripe;
     private LoginViewModel loginViewModel;
-    private LoginRepository loginRepository = LoginRepository.getInstance(new LoginDataSource());
-    private MutableLiveData<RegistrationFormState> loginFormState = new MutableLiveData<>();
+    private final LoginRepository loginRepository = LoginRepository.getInstance(new LoginDataSource());
+    private final MutableLiveData<RegistrationFormState> loginFormState = new MutableLiveData<>();
     private CardInputWidget cardInputWidget;
 
     public AlertDialog progressDialog;
@@ -154,6 +155,8 @@ public class PaymentActivity extends AppCompatActivity {
     private Boolean tipFlag = true;
     ReviewManager manager;
     ReviewInfo reviewInfo;
+
+    private TextInputEditText splInstructions;
     private RadioButton deliveryRadioBtn;
     private ArrayList<String> arrayList;
 
@@ -173,9 +176,38 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-
         manager = ReviewManagerFactory.create(this);
         Task<ReviewInfo> request = manager.requestReviewFlow();
+        String isPerkzUsed = getIntent().getStringExtra("isPerkzUsed");
+        System.out.println(" ******************** ");
+        System.out.println("isPerkzUsed: " + isPerkzUsed);
+        if (isPerkzUsed != null && isPerkzUsed.length() > 0 ) {
+            System.out.println("1");
+            if ( isPerkzUsed.contains("A"))
+            {
+                System.out.println("2");
+                if (loginRepository.reward != null && loginRepository.reward.getRewardType().equalsIgnoreCase("APP_DOWNLOAD")) {
+                    loginRepository.reward = null;
+                    System.out.println("3");
+                }
+            }
+
+            if ( isPerkzUsed.contains("B"))
+            {
+                System.out.println("4");
+                if (loginRepository.reward != null && loginRepository.reward.getRewardType().equalsIgnoreCase("FIRST_GROCERY_ORDER")) {
+                    loginRepository.reward = null;
+                    System.out.println("5");
+                }
+            }
+            PerkzRedeemedDialog newFragment =
+                    new PerkzRedeemedDialog( "Welcome Back",
+                            "Few Perkz for this account have already been redeemed",
+                            "Close", this);
+            newFragment.setCancelable(false);
+            newFragment.show(getSupportFragmentManager(), "Welcome back");
+            System.out.println("6");
+        }
         request.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 // We can get the ReviewInfo object
@@ -192,29 +224,29 @@ public class PaymentActivity extends AppCompatActivity {
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final TextView tableLabel = (TextView) findViewById(R.id.tableLabel);
-        tableNumber = (EditText) findViewById(R.id.tableNumber);
+        final TextView tableLabel = findViewById(R.id.tableLabel);
+        tableNumber = findViewById(R.id.tableNumber);
         final EditText regCustFirstname = findViewById(R.id.regCustomerFirstname);
         final EditText regCustLastname = findViewById(R.id.regCustomerLastname);
         final EditText regCustEmail = findViewById(R.id.regCustomerEmail);
-
+        splInstructions = findViewById(R.id.spl_instructions_edittext);
         final TextView delvrydatelabel = findViewById(R.id.deldatelabel);
 
-        final LinearLayout addTips = (LinearLayout) findViewById(R.id.addTip);
+        final LinearLayout addTips = findViewById(R.id.addTip);
         loginRepository.getCustomerEntity().setTipAmount(0.0);
         loginRepository.getCustomerEntity().setDeliveryDate("");
         loginRepository.getCustomerEntity().setDeliveryCharge(0.0);
-        noTip = (LinearLayout) findViewById(R.id.noTipLT);
-        Tip1Lt = (LinearLayout) findViewById(R.id.Tip1Lt);
-        Tip2Lt = (LinearLayout) findViewById(R.id.Tip2Lt);
-        Tip3Lt = (LinearLayout) findViewById(R.id.Tip3Lt);
-        Tip4Lt = (LinearLayout) findViewById(R.id.Tip4LT);
-        final TextView tip1 = (TextView) findViewById(R.id.Tip1);
-        final TextView tip2 = (TextView) findViewById(R.id.Tip2);
-        final TextView tip3 = (TextView) findViewById(R.id.Tip3);
-        tip1Amt = (TextView) findViewById(R.id.Tip1Amt);
-        tip2Amt = (TextView) findViewById(R.id.Tip2Amt);
-        tip3Amt = (TextView) findViewById(R.id.Tip3Amt);
+        noTip = findViewById(R.id.noTipLT);
+        Tip1Lt = findViewById(R.id.Tip1Lt);
+        Tip2Lt = findViewById(R.id.Tip2Lt);
+        Tip3Lt = findViewById(R.id.Tip3Lt);
+        Tip4Lt = findViewById(R.id.Tip4LT);
+        final TextView tip1 = findViewById(R.id.Tip1);
+        final TextView tip2 = findViewById(R.id.Tip2);
+        final TextView tip3 = findViewById(R.id.Tip3);
+        tip1Amt = findViewById(R.id.Tip1Amt);
+        tip2Amt = findViewById(R.id.Tip2Amt);
+        tip3Amt = findViewById(R.id.Tip3Amt);
 
         TextView freemaxOrderTxtView = findViewById(R.id.freemaxOrderTxt);
         freemaxOrderTxtView.setText("Order more than "+getMaxFreeDelOrderAmt()+", get Free Delivery.");
@@ -226,11 +258,12 @@ public class PaymentActivity extends AppCompatActivity {
         storeSummary.setLongitude(loginRepository.getCustomerEntity().getStore().getLongitude());
         loadingProgressBar = findViewById(R.id.loading);
 
-        radioButtonTakeOut = (RadioButton) findViewById(R.id.radioButtonTakeout);
+        radioButtonTakeOut = findViewById(R.id.radioButtonTakeout);
 
-        final RadioButton cashRadioBtn = (RadioButton) findViewById(R.id.radioButtonCash);
-        final RadioButton cardRadioBtn = (RadioButton) findViewById(R.id.radioButtonCard);
-        if (loginRepository.getCustomerEntity().getStore().getStoreAttributes().getPaymentOptions().get(0).equalsIgnoreCase("Card")) {
+        final RadioButton cashRadioBtn = findViewById(R.id.radioButtonCash);
+        final RadioButton cardRadioBtn = findViewById(R.id.radioButtonCard);
+        if (loginRepository.getCustomerEntity().getStore().getStoreAttributes().getPaymentOptions().
+                get(0).equalsIgnoreCase("Card")) {
 
             cardRadioBtn.setText(loginRepository.getCustomerEntity().getStore().getStoreAttributes().getPaymentOptions().get(0));
             if(loginRepository.getCustomerEntity().getStore().getStoreAttributes().getPaymentOptions().size()>1)
@@ -251,16 +284,16 @@ public class PaymentActivity extends AppCompatActivity {
                 cashRadioBtn.setEnabled(false);
             }
         }
-        final RadioButton dineInRadioBtn = (RadioButton) findViewById(R.id.radioButtonDineIn);
-        final RadioButton takeOutRadioBtn = (RadioButton) findViewById(R.id.radioButtonTakeout);
-        deliveryRadioBtn = (RadioButton) findViewById(R.id.radioButtonDelivery);
-        LinearLayout datetimepickerlinearLayout = (LinearLayout) findViewById(R.id.datetimepicker);
-        LinearLayout addressBarLT = (LinearLayout) findViewById(R.id.addressBar);
+        final RadioButton dineInRadioBtn = findViewById(R.id.radioButtonDineIn);
+        final RadioButton takeOutRadioBtn = findViewById(R.id.radioButtonTakeout);
+        deliveryRadioBtn = findViewById(R.id.radioButtonDelivery);
+        LinearLayout datetimepickerlinearLayout = findViewById(R.id.datetimepicker);
+        LinearLayout addressBarLT = findViewById(R.id.addressBar);
         payButton = findViewById(R.id.payButton);
         orderButton = findViewById(R.id.placeOrderButton);
         cardInputWidget = findViewById(R.id.cardInputWidget);
-        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        radioGroupDineIn = (RadioGroup) findViewById(R.id.radioGroup1);
+        radioGroup = findViewById(R.id.radioGroup);
+        radioGroupDineIn = findViewById(R.id.radioGroup1);
         futureUserCheckBox = findViewById(R.id.futureUserCheckBox);
         transactionFeeMessg = findViewById(R.id.transactionFeeMessg);
 
@@ -286,10 +319,12 @@ public class PaymentActivity extends AppCompatActivity {
                     tableNumber.setVisibility(View.GONE);
                 }
 
-            } else if ((serviceOption.equalsIgnoreCase("Take Out"))||(serviceOption.equalsIgnoreCase("Pickup"))) {
+            } else if ((serviceOption.equalsIgnoreCase("Take Out"))
+                    ||(serviceOption.equalsIgnoreCase("Pickup"))) {
                 takeOutRadioBtn.setText(serviceOption);
                 takeOutRadioBtn.setVisibility(View.VISIBLE);
                 takeOutRadioBtn.setChecked(true);
+                addressBarLT.setVisibility(View.INVISIBLE);
                 loginRepository.getCustomerEntity().setTakeOut(true);
                 delvrydatelabel.setText(serviceOption+" Date:");
 
@@ -378,9 +413,8 @@ public class PaymentActivity extends AppCompatActivity {
         radioGroupDineIn.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton rb1 = (RadioButton) group.findViewById(checkedId);
+                RadioButton rb1 = group.findViewById(checkedId);
                 if (null != rb1 && checkedId == R.id.radioButtonDineIn) {
-
                     //
                     //check dine in allowed?
                     checkDineInOption();
@@ -390,7 +424,7 @@ public class PaymentActivity extends AppCompatActivity {
                     tableNumber.setText(loginRepository.getCustomerEntity().getTableNumber());
                     tableLabel.setVisibility(View.VISIBLE);
                     tableNumber.setVisibility(View.VISIBLE);
-                    addressBarLT.setVisibility(View.GONE);
+                    addressBarLT.setVisibility(View.INVISIBLE);
                     cashRadioBtn.setEnabled(true);
                     payButton.setEnabled(true);
                     payButton.setBackgroundColor(Color.parseColor("#3F51B5"));
@@ -408,7 +442,7 @@ public class PaymentActivity extends AppCompatActivity {
                     tableLabel.setVisibility(View.GONE);
                     tableNumber.setVisibility(View.GONE);
                     //loginRepository.getCustomerEntity().setTableNumber("");
-                    addressBarLT.setVisibility(View.GONE);
+                    addressBarLT.setVisibility(View.INVISIBLE);
                     cashRadioBtn.setEnabled(true);
                     payButton.setEnabled(true);
                     payButton.setBackgroundColor(Color.parseColor("#3F51B5"));
@@ -425,22 +459,30 @@ public class PaymentActivity extends AppCompatActivity {
                     loginRepository.getCustomerEntity().setDeliveryAddress(null);
                     showCardOptions();
                 } else {
+
                     getStoredCustomerAddress(customerId, storeSummary);
                     addressBarLT.setVisibility(View.VISIBLE);
+
                     tableLabel.setVisibility(View.GONE);
                     tableNumber.setVisibility(View.GONE);
                     cashRadioBtn.setEnabled(false);
+
                     loginRepository.getCustomerEntity().setBillable(true);
+
                     deliveryCharge=deliveryChargeCalculated;
+
                     if (loginRepository.getCustomerEntity().getStore().getStoreAttributes().isAllowFutureOrders()==1) {
                         datetimepickerlinearLayout.setVisibility(View.VISIBLE);
                     }
+
                     showCardOptions();
                     if(deliveryCharge==0){
                         payButton.setEnabled(false);
                         payButton.setBackgroundColor(Color.LTGRAY);
                     }
                     delvrydatelabel.setText("Delivery Date:");
+
+
                 }
             }
         });
@@ -450,11 +492,15 @@ public class PaymentActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+                RadioButton rb = group.findViewById(checkedId);
                 if (null != rb && checkedId == R.id.radioButtonCard) {
                     // Toast.makeText(PaymentActivity.this, "Card Clicked", Toast.LENGTH_SHORT).show();
                     showCardOptions();
                     setTipVisible();
+                    if (loginRepository.getCustomerEntity().getStore().getStoreTypeId() == 2){
+                        //nathan
+                       addressBarLT.setVisibility(View.INVISIBLE);
+                    }
                     if(loginRepository.getCustomerEntity().getStore().getStoreAttributes().getServiceOptions().contains("Delivery"))
                     {
                         deliveryRadioBtn.setVisibility(View.VISIBLE);
@@ -522,6 +568,7 @@ public class PaymentActivity extends AppCompatActivity {
         });
 
         payButton.setOnClickListener((View view) -> {
+            System.out.println("TEST : PAYBUTTON");
             if (regCustFirstname.length() == 0 || regCustLastname.length() == 0 || regCustEmail.length() == 0 || !isEmailValid(regCustEmail.getText().toString())) {
                 loginDataChanged(regCustFirstname.getText().toString(),
                         regCustLastname.getText().toString(),
@@ -554,7 +601,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                         CustomerOrderCreationRequest order = new MenuSelectionToCustomerOrderConverter()
                                 .convert(paymentDetails.getPaymentMode(), paymentDetails.isAllowFutureUse());
-
+                        order.setSpecialInstructions(splInstructions.getText().toString());
                         //CustomerOrderCreationRequest orderCreationRequest = new CustomerOrderCreationRequest();
                         OfflinePaymentDetails offlinePaymentDetails = new OfflinePaymentDetails();
                         offlinePaymentDetails.setOrderCreationRequest(order);
@@ -572,6 +619,7 @@ public class PaymentActivity extends AppCompatActivity {
                             return;
                         }
                         progressDialog.show();
+                        System.out.println("TEST : requesting client secret");
                         loginViewModel.requestClientSecret(paymentDetails, this);
                     }
                     break;
@@ -580,6 +628,7 @@ public class PaymentActivity extends AppCompatActivity {
         });
 
         orderButton.setOnClickListener((View view) -> {
+            System.out.println("TEST : ORDER BUTTON" );
             if (regCustFirstname.length() == 0 || regCustLastname.length() == 0 || regCustEmail.length() == 0 || !isEmailValid(regCustEmail.getText().toString())) {
                 loginDataChanged(regCustFirstname.getText().toString(),
                         regCustLastname.getText().toString(),
@@ -612,12 +661,14 @@ public class PaymentActivity extends AppCompatActivity {
         loginViewModel.getPaymentIntentClientSecret().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String clientSecret) {
+                System.out.println("TEST : client secret response");
                 if (clientSecret == null) {
                     return;
                 }
 
                 if (clientSecret != null && clientSecret.length() > 0) {
                     paymentIntentClientSecret = clientSecret;
+                    System.out.println("TEST : start checkout");
                     startCheckout(futureUserCheckBox.isChecked());
                 } else {
                     Toast.makeText(getApplicationContext(), "Error contacting iPerkz server", Toast.LENGTH_SHORT).show();
@@ -794,11 +845,11 @@ public class PaymentActivity extends AppCompatActivity {
             }
         }
 
-        SingleDateAndTimePicker dateTimePicker = (SingleDateAndTimePicker) findViewById(R.id.single_day_picker);
+        SingleDateAndTimePicker dateTimePicker = findViewById(R.id.single_day_picker);
 
-        if (loginRepository.getCustomerEntity().getStore().getStoreTypeId() == 4) {
+        if (loginRepository.getCustomerEntity().getStore().getStoreTypeId() == 4 ) {
 
-            LinearLayout delTextLV = (LinearLayout) findViewById(R.id.delText);
+            LinearLayout delTextLV = findViewById(R.id.delText);
             delTextLV.setVisibility(View.VISIBLE);
             dateTimePicker.setDefaultDate(DateUtils.incrementDateByOne(new Date()));
             dateTimePicker.setDisplayMinutes(false);
@@ -812,14 +863,17 @@ public class PaymentActivity extends AppCompatActivity {
 
         }
         else {
+
             if (loginRepository.getCustomerEntity().getStore().getStoreTypeId() == 2){
                 dateTimePicker.setDisplayMinutes(false);
                 dateTimePicker.setDisplayHours(false);
                 dateTimePicker.mustBeOnFuture();
                 dateTimePicker.setDisplayYears(false);
                 dateTimePicker.setMaxDate(DateUtils.addMonthByOne(new Date(), 1));
+                addressBarLT.setVisibility(View.INVISIBLE);
 
             }
+
         }
 
         if (loginRepository.getCustomerEntity().getStore().getStoreTypeId() == 2) {
@@ -845,7 +899,7 @@ public class PaymentActivity extends AppCompatActivity {
 
 
 
-        addressSpinner = (Spinner) findViewById(R.id.addressSpinner);
+        addressSpinner = findViewById(R.id.addressSpinner);
         arrayList = new ArrayList<>();
         arrayList.add("Select Address");
 
@@ -869,7 +923,7 @@ public class PaymentActivity extends AppCompatActivity {
         autocompleteFragment.setHint(" Enter Address ");
         //autocompleteFragment.setText(Color.parseColor("#3F51B5"));
 
-        EditText input = (EditText) autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_input);
+        EditText input = autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_input);
         input.setText(" Add ");
         input.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         input.setTextSize(14f);
@@ -877,7 +931,6 @@ public class PaymentActivity extends AppCompatActivity {
         input.setTextColor(Color.BLUE);
         //input.setTextColor(Color.parseColor("#3F51B5"));
         autocompleteFragment.getView().findViewById(R.id.places_autocomplete_clear_button).setPadding(0, 0, 0, 55555);
-        ;
         autocompleteFragment.getView().findViewById(R.id.places_autocomplete_search_button).setVisibility(View.GONE);
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.ADDRESS, Place.Field.ADDRESS_COMPONENTS, Place.Field.LAT_LNG, Place.Field.NAME));
@@ -939,12 +992,14 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String deliveryAddress = parent.getItemAtPosition(position).toString();
-
+//nathan
                 if(deliveryAddress.equals("Select Address")){
                     deliveryCharge=0.0;
                     showCardOptions();
-                    payButton.setEnabled(false);
-                    payButton.setBackgroundColor(Color.LTGRAY);
+                    if ( takeOutRadioBtn.isChecked() == false ) {
+                        payButton.setEnabled(false);
+                        payButton.setBackgroundColor(Color.LTGRAY);
+                    }
                     return;
                 }
                 else if (deliveryAddress.equals("Add New")) {
@@ -955,7 +1010,6 @@ public class PaymentActivity extends AppCompatActivity {
                     input.performClick();
                 }
                 else {
-
                     setDeliveryCharge(deliveryAddress);
                 }
 
@@ -1106,8 +1160,8 @@ public class PaymentActivity extends AppCompatActivity {
         transactionFeeMessg.setVisibility(View.GONE);
         orderButton.setVisibility(View.VISIBLE);
         Double grandTotal = Data.getInstance().getGrandTotalAsDouble();
-        if (loginRepository.getCustomerEntity().getPerkzRewards().size() > 0 && loginRepository.getCustomerEntity().getPerkzRewards().get(0).getClaimedReward() != null) {
-            grandTotal = grandTotal - (loginRepository.getCustomerEntity().getPerkzRewards().get(0).getClaimedReward() - loginRepository.getCustomerEntity().getPerkzRewards().get(0).getPreviousClaim());
+        if (loginRepository.reward != null && loginRepository.reward.getClaimedReward() != null) {
+            grandTotal = grandTotal - (loginRepository.reward.getClaimedReward() - loginRepository.reward.getPreviousClaim());
         }
 
         //tips logic
@@ -1115,11 +1169,9 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
     public void showCardOptions() {
-
         payButton.setVisibility(View.VISIBLE);
         cardInputWidget.setVisibility(View.VISIBLE);
         futureUserCheckBox.setVisibility(View.VISIBLE);
-
         if(loginRepository.getCustomerEntity().isAllowCardFutureUse()){
             futureUserCheckBox.setVisibility(View.GONE);
             //futureUserCheckBox.setChecked(true);
@@ -1127,8 +1179,6 @@ public class PaymentActivity extends AppCompatActivity {
             RadioButton cardRadioBtn = findViewById(R.id.radioButtonCard);
             cardRadioBtn.setText("Card on file");
         }
-
-
         //deliveryRadioBtn.setVisibility(View.VISIBLE);
 
         Double grandTotal = Data.getInstance().getGrandTotalAsDouble();
@@ -1136,11 +1186,10 @@ public class PaymentActivity extends AppCompatActivity {
         Double transactionFee = ((grandTotal * loginRepository.getCustomerEntity().getStore().getChargeRate()) / 100)
                 + loginRepository.getCustomerEntity().getStore().getTransactionFee();
         grandTotal = grandTotal + transactionFee;
-
-        if (loginRepository.getCustomerEntity().getPerkzRewards().size() > 0 && loginRepository.getCustomerEntity().getPerkzRewards().get(0).getClaimedReward() != null) {
-            grandTotal = grandTotal - (loginRepository.getCustomerEntity().getPerkzRewards().get(0).getClaimedReward() - loginRepository.getCustomerEntity().getPerkzRewards().get(0).getPreviousClaim());
+        grandTotal = grandTotal + deliveryCharge;
+        if (loginRepository.reward != null && loginRepository.reward.getClaimedReward() != null) {
+            grandTotal = grandTotal - (loginRepository.reward.getClaimedReward() - loginRepository.reward.getPreviousClaim());
         }
-
         transactionFeeMessg.setText("As per the store owner policy, you will be charged a credit card transaction fee of $" +
                 Util.getFormattedDollarAmt(transactionFee));
         if (loginRepository.getCustomerEntity().getStore().getChargeMode().equalsIgnoreCase("CUSTOMER")) {
@@ -1148,6 +1197,7 @@ public class PaymentActivity extends AppCompatActivity {
             //
             prepareTips(grandTotal);
             grandTotal = grandTotal + customerTip;
+            //grandTotal = grandTotal + deliveryCharge;
             //
             if(deliveryCharge >0 && deliveryRadioBtn.isChecked()){
                 payButton.setText("Pay : $ " + Util.getFormattedDollarAmt(grandTotal) + " + $ "+Util.getFormattedDollarAmt(deliveryCharge)+" Delivery Charge");
@@ -1158,8 +1208,8 @@ public class PaymentActivity extends AppCompatActivity {
             deliveryOrderAmt = grandTotal;
         } else {
             Double grandTotall = Data.getInstance().getGrandTotalAsDouble() + customerTip;
-            if (loginRepository.getCustomerEntity().getPerkzRewards().size() > 0 && loginRepository.getCustomerEntity().getPerkzRewards().get(0).getClaimedReward() != null) {
-                grandTotall = grandTotall - (loginRepository.getCustomerEntity().getPerkzRewards().get(0).getClaimedReward() - loginRepository.getCustomerEntity().getPerkzRewards().get(0).getPreviousClaim());
+            if (loginRepository.reward != null && loginRepository.reward.getClaimedReward() != null) {
+                grandTotall = grandTotall - (loginRepository.reward.getClaimedReward() - loginRepository.reward.getPreviousClaim());
 
                 prepareTips(grandTotall);
 
@@ -1201,6 +1251,8 @@ public class PaymentActivity extends AppCompatActivity {
             payButton.setBackgroundColor(Color.LTGRAY);
             futureUserCheckBox.setVisibility(View.GONE);
         }
+
+
     }
     /*
     public AlertDialog.Builder getDialogProgressBar() {
@@ -1277,6 +1329,7 @@ public class PaymentActivity extends AppCompatActivity {
         try {
             CustomerOrderCreationRequest order = new MenuSelectionToCustomerOrderConverter()
                     .convert(paymentDetails.getPaymentMode(), paymentDetails.isAllowFutureUse());
+            order.setSpecialInstructions(splInstructions.getText().toString());
             String jsonValue = mapper.writeValueAsString(order);
             Log.println(Log.INFO, "ViewCartActivity", jsonValue);
             byte[] bytes = mapper.writeValueAsBytes(order);
@@ -1390,8 +1443,9 @@ public class PaymentActivity extends AppCompatActivity {
 
             PaymentIntent paymentIntent = result.getIntent();
             PaymentIntent.Status status = paymentIntent.getStatus();
-            activity.progressDialog.hide();
-
+            System.out.println("TEST : hide the Progress Dialog" );
+          //  activity.progressDialog.hide();
+            System.out.println("TEST : After hide the Progress Dialog" );
             if (status == PaymentIntent.Status.Succeeded) {
                 activity.submitOrder();
                 /*
@@ -1628,10 +1682,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     public void loadArrayAdapter(List<AddressDetail> addressDetailsList){
 
-        if(this.arrayList.contains("Add New")){
-
-            this.arrayList.remove("Add New");
-        }
+        this.arrayList.remove("Add New");
         for(AddressDetail addressDetail : addressDetailsList) {
             String address = Util.getFormattedDollarAmt(addressDetail.getDistance()) + "-" + addressDetail.getTag() + "-" + (addressDetail.getFieldOne() != null ? addressDetail.getFieldOne() : "") + "," + addressDetail.getFieldTwo() + "," + addressDetail.getCity() + "," + addressDetail.getState() + "," + addressDetail.getCountry() + "-" + addressDetail.getZip();
             address = address.replace("null,", "");
@@ -1719,7 +1770,7 @@ public class PaymentActivity extends AppCompatActivity {
                         if(distance > deliveryPricing.getMinDistance() && distance < deliveryPricing.getMaxDistance()){
 
                             for(DeliveryRules deliveryRules: deliveryPricing.getRules()){
-                                if(deliveryOrderAmt > deliveryRules.getMinAmt() && deliveryOrderAmt < deliveryRules.getMaxAmt())
+                                if(deliveryOrderAmt >= deliveryRules.getMinAmt() && deliveryOrderAmt < deliveryRules.getMaxAmt())
                                 {
                                     loginRepository.getCustomerEntity().setDeliveryCharge(deliveryRules.getDeliveryCharge());
                                     deliveryCharge=deliveryRules.getDeliveryCharge();

@@ -99,6 +99,7 @@ public class RewardsRequestCallback extends UrlRequest.Callback {
                                                    receivedReward.setStoreId((Integer) map.get("storeId"));
                                                    receivedReward.setClaimedReward((Double) map.get("claimedReward"));
                                                    reward.setValue(receivedReward);
+
                                                }
                                                } else{
                                                    reward.setValue(null);

@@ -96,11 +96,10 @@ import java.util.concurrent.Executors;
  * status bar and navigation/system bar) with user interaction.
  */
 public class ViewCartActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
+    private  CheckBox rewardsCheck;
     AlertDialog.Builder builder;
     AlertDialog progressDialog;
     private LoginViewModel loginViewModel;
@@ -114,12 +113,14 @@ public class ViewCartActivity extends AppCompatActivity {
     LinearLayout rewardsLT ;
     LinearLayout remainingCreditsLT;
     TextView rewardsRemainingTextAmt;
+    TextView applyPerkzText;
     private boolean includeTransactionFee;
     LocationManager locationManager;
     LocationListener locationListener;
     UserLocation userLocation;
     View view;
     private String wallpaper;
+    Bitmap myImage = null;
 /*
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -134,6 +135,7 @@ public class ViewCartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loginRepository.reward = null;
         // setContentView(R.layout.activity_view_cart);
         ActivityViewCartBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_view_cart);
         //default
@@ -150,7 +152,7 @@ public class ViewCartActivity extends AppCompatActivity {
         rewardsLT = (LinearLayout) findViewById(R.id.rewardsLT);
         remainingCreditsLT = (LinearLayout) findViewById(R.id.remainingCreditLT);
         rewardsRemainingTextAmt = (TextView) findViewById(R.id.remaingingCreditAmt);
-
+        applyPerkzText = (TextView) findViewById(R.id.ApplyCreditText) ;
         recyclerView = (RecyclerView) findViewById(R.id.recycleView);
 
         // use this setting to improve performance if you know that changes
@@ -186,9 +188,9 @@ public class ViewCartActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        wallpaper = intent.getStringExtra("wallPaper");
 
-        Bitmap myImage = getBitmapFromURL(wallpaper);
+        wallpaper = intent.getStringExtra("wallPaper");
+        myImage = getBitmapFromURL(wallpaper);
         Drawable dr = new BitmapDrawable(myImage);
         ConstraintLayout linearLayout = (ConstraintLayout) findViewById(R.id.viewcartlt);
         linearLayout.setBackground(dr);
@@ -207,6 +209,8 @@ public class ViewCartActivity extends AppCompatActivity {
 
        // if(Data.getInstance().getTransactionFee().equalsIgnoreCase("0.0")){
         LinearLayout cardTrasactionView = (LinearLayout) findViewById(R.id.cardTransactionFeeLT);
+        System.out.println("loginRepository.getCustomerEntity()'" + loginRepository.getCustomerEntity() + "'");
+        System.out.println("loginRepository.getCustomerEntity().getStore()'" + loginRepository.getCustomerEntity().getStore() + "'");
 
         if ( loginRepository.getCustomerEntity().getStore().getChargeMode().equalsIgnoreCase("CUSTOMER")
                 && (loginRepository.getCustomerEntity().isAllowCardFutureUse()) ) {
@@ -326,7 +330,7 @@ public class ViewCartActivity extends AppCompatActivity {
         loginViewModel.retrieveRewards(loginRepository.getCustomerEntity(), this);
 
 
-        CheckBox rewardsCheck = (CheckBox) findViewById(R.id.rewardCheckBox);
+        rewardsCheck = (CheckBox) findViewById(R.id.rewardCheckBox);
         rewardsCheck.setChecked(true);
         Double originalAmount= Data.getInstance().getGrandTotalAsDouble();
 
@@ -350,20 +354,48 @@ public class ViewCartActivity extends AppCompatActivity {
                     rewardsLT.setVisibility(View.GONE);
                     remainingCreditsLT.setVisibility(View.GONE);
                     orderTextView.setText(Data.getInstance().grandTotalWithTransFee());
+                    rewardsCheck.setVisibility(View.GONE);
+                    applyPerkzText.setVisibility(View.GONE);
                     return;
                 }
-
+                loginRepository.reward = reward;
                 if((reward.getReward()-reward.getClaimedReward())>0) {
-                    if((loginRepository.getCustomerEntity().getStore().getStoreTypeId()!=2)&&(loginRepository.getCustomerEntity().getStore().getStoreTypeId()!=4)) {
-                        rewardAmount = reward.getReward() - reward.getClaimedReward();
-                        claimedReward = reward.getClaimedReward();
-                        loginRepository.getCustomerEntity().getPerkzRewards().get(0).setPreviousClaim(reward.getClaimedReward());
-                        processRewards(rewardsCheck.isChecked());
+                    rewardsCheck.setVisibility(View.INVISIBLE);
+                    applyPerkzText.setVisibility(View.INVISIBLE);
+                    if (reward.getPerkzType().equalsIgnoreCase("APP_DOWNLOAD")) {
+                        if((loginRepository.getCustomerEntity().getStore().getStoreTypeId()==1)
+
+                                || (loginRepository.getCustomerEntity().getStore().getStoreTypeId() == 3)) {
+                            rewardsCheck.setVisibility(View.VISIBLE);
+                            applyPerkzText.setVisibility(View.VISIBLE);
+                            rewardAmount = reward.getReward() - reward.getClaimedReward();
+                            claimedReward = reward.getClaimedReward();
+                            loginRepository.reward.setPreviousClaim(reward.getClaimedReward());
+                            rewardsCheck.setEnabled(true);
+
+
+                            processRewards(rewardsCheck.isChecked());
+
+                        }
+                    } else if (reward.getPerkzType().equalsIgnoreCase("FIRST_GROCERY_ORDER")) {
+                        if(loginRepository.getCustomerEntity().getStore().getStoreTypeId()==4) {
+                            rewardsCheck.setVisibility(View.VISIBLE);
+                            applyPerkzText.setVisibility(View.VISIBLE);
+                            rewardAmount = reward.getReward() - reward.getClaimedReward();
+                            claimedReward = reward.getClaimedReward();
+                            remainingCreditsLT.setVisibility(View.GONE);
+                            loginRepository.reward.setPreviousClaim(reward.getClaimedReward());
+                            rewardsCheck.setChecked(true);
+                            rewardsCheck.setEnabled(false);
+                            processRewards(rewardsCheck.isChecked());
+                        }
                     }
                     else{
                         rewardsLT.setVisibility(View.GONE);
                         remainingCreditsLT.setVisibility(View.GONE);
                         rewardsTextAmt.setText("$ 0.00");
+                        rewardsCheck.setVisibility(View.GONE);
+                        applyPerkzText.setVisibility(View.GONE);
                         //processRewards(false);
                     }
 
@@ -372,6 +404,8 @@ public class ViewCartActivity extends AppCompatActivity {
                     rewardsLT.setVisibility(View.GONE);
                     remainingCreditsLT.setVisibility(View.GONE);
                     rewardsTextAmt.setText("$ 0.00");
+                    rewardsCheck.setVisibility(View.GONE);
+                    applyPerkzText.setVisibility(View.GONE);
                 }
             }
         });
@@ -445,11 +479,14 @@ public class ViewCartActivity extends AppCompatActivity {
             remainingCreditsLT.setVisibility(View.GONE);
         }
         else{
+            // Identify the Perkz that is applied
             rewardsTextAmt.setText("- $ " + Util.getFormattedDollarAmt(rewardAmount));
 
             if(subtotal<0){
-                remainingCreditsLT.setVisibility(View.VISIBLE);
-                rewardsRemainingTextAmt.setText("- $ " + Util.getFormattedDollarAmt(rewardAmount- originalAmount));
+                if (loginRepository.getCustomerEntity().getStore().getStoreTypeId() != 4) {
+                    remainingCreditsLT.setVisibility(View.VISIBLE);
+                    rewardsRemainingTextAmt.setText("- $ " + Util.getFormattedDollarAmt(rewardAmount - originalAmount));
+                }
                 localClaimedReward = localClaimedReward + Data.getInstance().getGrandTotalAsDouble();
                 orderTextView.setText("$ 0.00");
             }
@@ -463,7 +500,7 @@ public class ViewCartActivity extends AppCompatActivity {
             }
 
         }
-        loginRepository.getCustomerEntity().getPerkzRewards().get(0).setClaimedReward(localClaimedReward);
+        loginRepository.reward.setClaimedReward(localClaimedReward);
     }
 
     private boolean clearCart() {
@@ -528,7 +565,9 @@ public class ViewCartActivity extends AppCompatActivity {
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
             return myBitmap;
         } catch (IOException e) {
+            System.out.println("VIDYA...8");
             e.printStackTrace();
+            System.out.println("VIDYA...9");
             return null;
         }
     }

@@ -7,14 +7,17 @@ import com.appisoft.iperkz.entity.CustomerOrderCreationRequest;
 import com.appisoft.iperkz.entity.CustomerOrderMenuItemRequest;
 import com.appisoft.iperkz.entity.FoodItem;
 import com.appisoft.iperkz.entity.MenuItemAddition;
+import com.appisoft.iperkz.entity.Reward;
 import com.appisoft.iperkz.entity.SubItem;
 import com.appisoft.iperkz.util.DateUtils;
 import com.appisoft.iperkz.util.PaymentUtil;
 import com.appisoft.iperkz.util.Util;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 public class MenuSelectionToCustomerOrderConverter {
@@ -26,7 +29,14 @@ public class MenuSelectionToCustomerOrderConverter {
         request.setAllowFutureUse(allowFutureUse);
         request.setStoreId(loginRepository.getCustomerEntity().getStoreId());
         request.setCustomerId(loginRepository.getCustomerEntity().getCustomerId());
-        request.setPerkzRewards(loginRepository.getCustomerEntity().getPerkzRewards());
+       // request.setPerkzRewards(loginRepository.getCustomerEntity().getPerkzRewards());
+        if (loginRepository.reward != null) {
+            List<Reward> rewardsList = new ArrayList<>();
+            rewardsList.add(loginRepository.reward);
+            request.setPerkzRewards(rewardsList);
+        } else {
+            request.setPerkzRewards(null);
+        }
         request.setIsBillable(loginRepository.getCustomerEntity().isBillable());
         request.setIsTakeOut(loginRepository.getCustomerEntity().isTakeOut());
         request.setTableNumber(loginRepository.getCustomerEntity().getTableNumber());

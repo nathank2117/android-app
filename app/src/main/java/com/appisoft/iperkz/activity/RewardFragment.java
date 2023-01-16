@@ -19,6 +19,8 @@ import com.appisoft.iperkz.entity.Reward;
 import com.appisoft.perkz.R;
 
 import java.util.List;
+import java.text.NumberFormat;
+import java.text.DecimalFormat;
 
 public class RewardFragment extends DialogFragment {
     private List<Reward> rewardList;
@@ -46,12 +48,26 @@ public class RewardFragment extends DialogFragment {
         closeBtn.setOnClickListener(this::closeReward);
 
 
-        TextView textViewTitle  = (TextView) view.findViewById(R.id.rewardTextTitle);
-        TextView textView  = (TextView) view.findViewById(R.id.rewardText);
-        textViewTitle.setText("Enjoy $ 5 Reward for using the App");
+        TextView textViewTitleDownload  = (TextView) view.findViewById(R.id.rewardTextTitleDownload);
+        TextView textViewTitleGroceries  = (TextView) view.findViewById(R.id.rewardTextTitleGroceries);
 
-        textView.setText("We added $5 into your account. When you place your first order " +
-                "you can apply this amount towards your order only on Restaurants");
+        TextView textView  = (TextView) view.findViewById(R.id.rewardText);
+
+        if ( rewardList.size() > 0) {
+            for (Reward reward: rewardList) {
+                System.out.println("test");
+                NumberFormat nf = new DecimalFormat("##.###");
+                if (reward.getPerkzType().equalsIgnoreCase("APP_DOWNLOAD")) {
+                    textViewTitleDownload.setText("Enjoy $5 Reward on Restaurants Order");
+                } else if (reward.getPerkzType().equalsIgnoreCase("FIRST_GROCERY_ORDER")) {
+                    textViewTitleGroceries.setText("Enjoy $"+ nf.format(reward.getReward()) + " Reward on Groceries Order");
+                }
+            }
+        }
+       // textViewTitleDownload.setText("Enjoy $ 5 Reward for using the App");
+
+        textView.setText("When you place your first order " +
+                "you can apply this amount towards your order");
 
 
         builder.setView(view)
