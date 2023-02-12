@@ -12,6 +12,7 @@ import android.app.NotificationManager;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -41,6 +42,7 @@ import com.appisoft.iperkz.activity.data.LoginRepository;
 import com.appisoft.iperkz.adapter.BottomNavigationHandler;
 import com.appisoft.iperkz.callback.ImageButtonLoadCallBack;
 import com.appisoft.iperkz.callback.ImageLoadCallBack;
+import com.appisoft.iperkz.entity.ShoppingCart;
 import com.appisoft.iperkz.firebase.FirebaseService;
 import com.appisoft.perkz.binding.MainActivityContract;
 import com.appisoft.perkz.binding.MainActivityPresenter;
@@ -59,6 +61,7 @@ import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import com.appisoft.iperkz.data.Data;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.stripe.android.PaymentConfiguration;
@@ -74,6 +77,8 @@ public class DisplayMessageActivity extends AppCompatActivity {
     private ProgressBar loadingProgressBar2;
     private ProgressBar loadingProgressBar1;
     private ProgressBar loadingProgressBar3;
+    SharedPreferences sharedpreferences;
+    public static final String LOCATIONPREFERENCES = "LocPrefs" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,8 +226,64 @@ public class DisplayMessageActivity extends AppCompatActivity {
             startActivity(intent);
 
         }
+        sharedpreferences = getSharedPreferences(LOCATIONPREFERENCES, Context.MODE_PRIVATE);
+        //getShoppingCart();
+        Data.getInstance().recalculateTotalCostWithoutSaving();
+        LinearLayout linearLayout = findViewById(R.id.vcartfragment);
+        if(!Data.getInstance().getTotalCost().equals("$ 0.00")) {
+            linearLayout.setBackgroundColor(Color.parseColor("#3F51B5"));
+        }
+        else{
+            linearLayout.setBackgroundColor(Color.GRAY);
+        }
+
+       // Data.getInstance().recalculateTotalCostWithoutSaving();
 
     }
+
+    public void getShoppingCart() {
+        String shoppingCartString = sharedpreferences.getString("SHOPPING_CART", null);
+        Data data = Data.getInstance(this.getApplicationContext());
+        ObjectMapper mapper = new ObjectMapper();
+        ShoppingCart shoppingCart = null;
+
+        try {
+            if (shoppingCartString != null) {
+                System.out.println("VVVV:****: loading Shopping cart JSON : " + shoppingCartString );
+                shoppingCart = mapper.readValue(shoppingCartString, ShoppingCart.class);
+                if (shoppingCart != null ) {
+                    System.out.println("VVVV:****: Shopping cart is not null");
+                    data.setSelectedMenuItems(shoppingCart.getCartItems());
+                    System.out.println("VVVV:**** Loaded records: " + shoppingCart.getCartItems().size());
+
+                } else {
+                    System.out.println("VVVV:****Shopping cart IS null");
+                }
+
+            } else {
+                System.out.println("VVVV: JSON IS null");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    /*
+    @Override
+    public void onStart() {
+        super.onStart();
+        System.out.println("XYZ::: 1" );
+        Data.getInstance().recalculateTotalCostWithoutSaving();
+        LinearLayout linearLayout = findViewById(R.id.vcartfragment);
+        System.out.println("XYZ::: 2 :: " + Data.getInstance().getTotalCost());
+        if(!Data.getInstance().getTotalCost().equals("$ 0.00")) {
+            linearLayout.setBackgroundColor(Color.parseColor("#3F51B5"));
+        }
+        else{
+            linearLayout.setBackgroundColor(Color.GRAY);
+        }
+
+    }
+    */
 
 
 

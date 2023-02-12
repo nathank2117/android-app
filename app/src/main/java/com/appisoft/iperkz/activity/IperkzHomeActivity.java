@@ -1,5 +1,7 @@
 package com.appisoft.iperkz.activity;
 
+import static com.appisoft.iperkz.activity.RegistrationNewActivity.LOCATIONPREFERENCES;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -46,8 +48,10 @@ import com.appisoft.iperkz.callback.StoreTypesRequestCallback;
 import com.appisoft.iperkz.data.Data;
 import com.appisoft.iperkz.engine.Cronet;
 import com.appisoft.iperkz.entity.AppSettings;
+import com.appisoft.iperkz.entity.FoodItem;
 import com.appisoft.iperkz.entity.Item;
 import com.appisoft.iperkz.entity.Setting;
+import com.appisoft.iperkz.entity.ShoppingCart;
 import com.appisoft.iperkz.entity.StoreTypes;
 import com.appisoft.iperkz.entity.UserLocation;
 import com.appisoft.perkz.DisplayMessageActivity;
@@ -68,6 +72,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Executor;
@@ -142,6 +147,8 @@ public class IperkzHomeActivity extends AppCompatActivity {
         String userlocationJson = sharedpreferences.getString("USERLOCATION", null);
         ObjectMapper mapper1 = new ObjectMapper();
         UserLocation userLocationPref = null;
+
+
         try {
             if (userlocationJson != null)
                 userLocationPref = mapper1.readValue(userlocationJson, UserLocation.class);
@@ -181,6 +188,8 @@ public class IperkzHomeActivity extends AppCompatActivity {
         getAppsettings();
         //get storeTypes
         getStroreTypes();
+
+      //  getShoppingCart();
 
 
         locAddressBtn.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +248,7 @@ public class IperkzHomeActivity extends AppCompatActivity {
                     } catch (Exception e) {
 
                     }
+
                     editor.putString("USERLOCATION", userLocationJson);
                     editor.commit();
                     //save preferences
@@ -738,7 +748,47 @@ public class IperkzHomeActivity extends AppCompatActivity {
         request.start();
     }
 
+    public void getShoppingCart() {
+        String shoppingCartString = sharedpreferences.getString("SHOPPING_CART", null);
+        Data data = Data.getInstance(this.getApplicationContext());
+        ObjectMapper mapper = new ObjectMapper();
+        ShoppingCart shoppingCart = null;
+
+        try {
+            if (shoppingCartString != null) {
+                System.out.println("VVVV:**** 1: loading Shopping cart JSON : " + shoppingCartString );
+                shoppingCart = mapper.readValue(shoppingCartString, ShoppingCart.class);
+                if (shoppingCart != null ) {
+                    System.out.println("VVVV:****: Shopping cart is not null");
+                    data.setSelectedMenuItems(shoppingCart.getCartItems());
+                    System.out.println("VVVV:**** Loaded records: " + shoppingCart.getCartItems().size());
+
+                } else {
+                    System.out.println("VVVV:****Shopping cart IS null");
+                }
+
+            } else {
+                System.out.println("VVVV: JSON IS null");
+            }
+        } catch (IOException e) {
+            System.out.println("VVVV:**** conversion failed: " + e.toString() ) ;
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //getShoppingCart();
+        //Data data = Data.getInstance(this.getApplicationContext());
+        //data.recalculateTotalCostWithoutSaving();
+    }
+
+
+
     public  void setAppSettings(AppSettings appsettings) {
+            //Sotre for later use in the app
+        loginRepository.setAppSettings(appsettings);
+
             String bannerUrl ="";
 
             List<Setting> settings = appsettings.getSettings();
@@ -751,6 +801,10 @@ public class IperkzHomeActivity extends AppCompatActivity {
 
             if(setting.getKey().equals("main-background")){
                 wallpaper = setting.getValue();
+            }
+
+            if (setting.getKey().equalsIgnoreCase("cutoff-time")) {
+                System.out.println("NATHAN ::: " + setting.getValue());
             }
         }
 

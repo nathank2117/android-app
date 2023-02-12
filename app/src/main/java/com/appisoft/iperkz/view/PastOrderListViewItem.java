@@ -1,12 +1,17 @@
 package com.appisoft.iperkz.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,10 +43,12 @@ import java.util.concurrent.Executors;
 
 public class PastOrderListViewItem extends LinearLayout  implements View.OnClickListener {
     private static final String TAG = "PastOrderListViewItem";
-
+    private TextView trackingView;
     PastOrderItem pastOrderItem = null;
     Context context ;
+    private String url = "";
     private LoginRepository loginRepository = LoginRepository.getInstance(new LoginDataSource());
+
 
     public PastOrderListViewItem(Context context) {
         super(context);
@@ -56,6 +63,9 @@ public class PastOrderListViewItem extends LinearLayout  implements View.OnClick
         TextView orderNumTextView = (TextView)findViewById(R.id.orderNum);
         orderNumTextView.setText(pastOrderItem.getOrderId() +"");
 
+        trackingView.setText("Track");
+        url = pastOrderItem.getTableNumber();
+        System.out.println(pastOrderItem.getTableNumber());
         TextView orderCreationDate = (TextView)findViewById(R.id.orderCreationDate);
         orderCreationDate.setText(pastOrderItem.getOrderTime());
 
@@ -205,12 +215,41 @@ public class PastOrderListViewItem extends LinearLayout  implements View.OnClick
                 context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         inflater.inflate(R.layout.list_past_order_item, this);
+        trackingView = (TextView)findViewById(R.id.trackinglink);
+        trackingView.setClickable(true);
+        trackingView.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
+        trackingView
+                .setClickable(false);
+        AlertDialog.Builder alert = new AlertDialog.Builder(this.context);
+        alert.setTitle("Track your order");
+        WebView wv = new WebView(this.context);
+        wv.getSettings().setJavaScriptEnabled(true);
 
+       // wv.loadUrl("http:\\perkz.s3.us-east-2.amazonaws.com/Terms+and+conditions+-+iPERKZ-1.0.htm");
+        wv.loadUrl(url);
+        wv.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+
+                return true;
+            }
+        });
+
+        alert.setView(wv);
+        alert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                trackingView.setClickable(true);
+                dialog.dismiss();
+            }
+        });
+        alert.show();
 
     }
 

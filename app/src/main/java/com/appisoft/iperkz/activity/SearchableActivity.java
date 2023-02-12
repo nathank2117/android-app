@@ -19,7 +19,7 @@ import com.appisoft.iperkz.callback.MenuListServiceRequestCallback;
 import com.appisoft.iperkz.data.Data;
 import com.appisoft.iperkz.engine.Cronet;
 import com.appisoft.iperkz.entity.MenuFilterCriteria;
-import com.appisoft.iperkz.fragement.InProgressDialog;
+//import com.appisoft.iperkz.fragement.InProgressDialog;
 import com.appisoft.perkz.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -34,7 +34,7 @@ public class SearchableActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     LoginRepository loginRepository = LoginRepository.getInstance(new LoginDataSource());
-    InProgressDialog builder;
+   // InProgressDialog builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,8 @@ public class SearchableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_searchable);
         recyclerView = (RecyclerView) findViewById(R.id.recycleView);
 
-        builder = new InProgressDialog();
-        builder.setCancelable(false);
+       // builder = new InProgressDialog();
+        //builder.setCancelable(false);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -96,9 +96,9 @@ public class SearchableActivity extends AppCompatActivity {
          //call the service to get the Data
         CronetEngine cronetEngine = Cronet.getCronetEngine(this);
 
-        builder.show(getSupportFragmentManager(), "test");
+        //builder.show(getSupportFragmentManager(), "test");
 
-        MenuListServiceRequestCallback callbackOject = new MenuListServiceRequestCallback(recyclerView, builder, this);
+        MenuListServiceRequestCallback callbackOject = new MenuListServiceRequestCallback(recyclerView, this);
         MenuFilterCriteria criteria = new MenuFilterCriteria();
         criteria.setMenuName(query);
         callbackOject.setFilterCriteria(criteria);

@@ -40,7 +40,8 @@ public class OrdersHistoryActivity extends AppCompatActivity {
 
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
-        recyclerView = (RecyclerView) findViewById(R.id.recycleView);
+        recyclerView
+                = (RecyclerView) findViewById(R.id.recycleView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

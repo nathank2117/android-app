@@ -101,6 +101,7 @@ public class MenuView extends LinearLayout implements View.OnClickListener {
                    isSelectedTextView.setText(String.valueOf(item.getQuantity()));
                }
            }
+           System.out.println("VVVV: Before calling MenuView oncreate : " + selectedItem.size() );
             if (dailySpecial.isSelected() == false) {
                 isSelectedTextView.setVisibility(View.GONE);
                 //qtySelectedTextView.setVisibility(View.GONE);

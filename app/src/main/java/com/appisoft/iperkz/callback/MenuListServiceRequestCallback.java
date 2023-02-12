@@ -17,7 +17,7 @@ import com.appisoft.iperkz.entity.MenuFilterCriteria;
 import com.appisoft.iperkz.entity.MenuItem;
 import com.appisoft.iperkz.entity.MenuItemAddition;
 import com.appisoft.iperkz.entity.SubItem;
-import com.appisoft.iperkz.fragement.InProgressDialog;
+//import com.appisoft.iperkz.fragement.InProgressDialog;
 import com.appisoft.iperkz.util.DateUtils;
 import com.appisoft.iperkz.util.Util;
 import com.appisoft.perkz.MenuView;
@@ -54,10 +54,12 @@ public class MenuListServiceRequestCallback extends UrlRequest.Callback {
     private RecyclerView.Adapter mAdapter;
     private MenuFilterCriteria criteria = null;
     private String activityName = "";
-    private InProgressDialog progressDialog;
-    public MenuListServiceRequestCallback(RecyclerView _recyclerView, InProgressDialog progressDialog, Context context) {
-        this.recyclerView = _recyclerView;
-        this.progressDialog = progressDialog;
+   // private InProgressDialog progressDialog;
+   // public MenuListServiceRequestCallback(RecyclerView _recyclerView, InProgressDialog progressDialog, Context context) {
+    public MenuListServiceRequestCallback(RecyclerView _recyclerView, Context context) {
+
+            this.recyclerView = _recyclerView;
+       // this.progressDialog = progressDialog;
         activityName = context.getClass().getSimpleName() ;
         if (activityName.equalsIgnoreCase("MenuDetailsActivity") ){
             this.mainActivity = (MenuDetailsActivity) context;
@@ -222,9 +224,12 @@ public class MenuListServiceRequestCallback extends UrlRequest.Callback {
                 storeInCache(criteria.getMealType(), myDataset);
                 mAdapter = new MenuListAdapter(myDataset);
                 recyclerView.setAdapter(mAdapter);
+               /*
                 if (progressDialog != null ) {
                     progressDialog.dismiss();
                 }
+
+                */
                 if (activityName.equalsIgnoreCase("MenuDetailsActivity") ){
                     ((MenuDetailsActivity) mainActivity).setAdapter(mAdapter);
                 } else if (activityName.equalsIgnoreCase("SearchableActivity")) {

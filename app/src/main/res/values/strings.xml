@@ -56,7 +56,8 @@
         <item>25 Miles</item>
         <item>30 Miles</item>
     </string-array>
-    <string name="api_key">AIzaSyDAnogJDdC8PF3p5UmLUD9SaTIuuVgYWZw</string>
+    <string name="api_key">AIzaSyCfVcoodJGUOGg94jkXRqBwExC3ix5dxRs</string>
     <!-- OTP SCREEN -->
     <string name="disclaimer_otp">You will receive an SMS from iPerkz for verification purpose. Message and Data rates may apply.</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

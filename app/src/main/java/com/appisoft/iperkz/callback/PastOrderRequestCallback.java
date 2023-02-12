@@ -120,7 +120,7 @@ public class PastOrderRequestCallback extends UrlRequest.Callback {
                     item.setTotalSalePrice((Double) map.get("totalSalePrice"));
                     item.setPerkzDeducted((Double) map.get("discount"));
                     item.setSalesTax((Double) map.get("tax"));
-
+                    item.setTableNumber((String)map.get("tableNumber"));
                     item.setTipAmount((Double) map.get("tipAmount"));
                     item.setTransactionFee((Double) map.get("transactionFee"));
                     item.setTakeOut((Integer)map.get("takeOut"));

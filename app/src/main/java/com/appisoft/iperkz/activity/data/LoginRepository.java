@@ -1,6 +1,9 @@
 package com.appisoft.iperkz.activity.data;
 
+import static com.appisoft.iperkz.activity.RegistrationNewActivity.LOCATIONPREFERENCES;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -8,6 +11,7 @@ import com.appisoft.iperkz.activity.PaymentActivity;
 import com.appisoft.iperkz.activity.data.model.LoggedInUser;
 import com.appisoft.iperkz.activity.ui.login.LoginResult;
 import com.appisoft.iperkz.callback.DrivingDistanceCallbackMenu;
+import com.appisoft.iperkz.entity.AppSettings;
 import com.appisoft.iperkz.entity.CustomerEntity;
 import com.appisoft.iperkz.entity.CustomerOrderCreationRequest;
 import com.appisoft.iperkz.entity.MenuItem;
@@ -19,6 +23,9 @@ import com.appisoft.iperkz.entity.SimpleResponse;
 import com.appisoft.iperkz.entity.Store;
 import com.appisoft.iperkz.entity.StoreTypes;
 import com.appisoft.iperkz.entity.UserLocation;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -36,6 +43,7 @@ public class LoginRepository {
     private CustomerEntity customerEntity = null;
     private boolean dineInOptionAllowed = true;
     private StoreTypes storeTypes = null;
+    private AppSettings appSettings = null;
 
     // private constructor : singleton access
     private LoginRepository(LoginDataSource dataSource) {
@@ -169,5 +177,31 @@ public class LoginRepository {
 
     public void setStoreTypes(StoreTypes storeTypes) {
         this.storeTypes = storeTypes;
+    }
+
+    public AppSettings getAppSettings() {
+        /*
+         if (appSettings == null) {
+             //try to get from memory
+             SharedPreferences sharedpreferences = getContext().getSharedPreferences(LOCATIONPREFERENCES, Context.MODE_PRIVATE);
+             String appsettingsJson = sharedpreferences.getString("APPSETTINGS", null);
+             ObjectMapper mapper11 = new ObjectMapper();
+             AppSettings appSettings = null;
+             try {
+                 if (appsettingsJson != null)
+                     appSettings = mapper11.readValue(appsettingsJson, AppSettings.class);
+
+
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+             return appSettings;
+         }
+         */
+        return appSettings;
+    }
+
+    public void setAppSettings(AppSettings appSettings) {
+        this.appSettings = appSettings;
     }
 }

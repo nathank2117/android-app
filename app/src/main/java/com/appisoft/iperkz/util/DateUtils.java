@@ -101,6 +101,37 @@ public class DateUtils {
         return nextDate;
     }
 
+    public static  boolean isPastCutOffTime(String cuttOffString) {
+        if (cuttOffString == null) {
+            return false;
+        }
+        Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        String[] cutOffDetails = cuttOffString.split(":");
+        int cutOffHour = Integer.parseInt(cutOffDetails[0]);
+        int cutOffMinute = Integer.parseInt(cutOffDetails[1]);
+        System.out.println ("NATHAN ::: cuttoff Hour : " + cutOffHour);
+        System.out.println ("NATHAN ::: cuttoff Minute : " + cutOffMinute);
+        System.out.println ("NATHAN :::  Hour : " + hour);
+        System.out.println ("NATHAN :::  Minute : " + minute);
+
+        if (cutOffHour < hour ) {
+            return true;
+        }
+        if (cutOffHour > hour ) {
+            return false;
+        }
+        if (cutOffHour == hour) {
+            if (cutOffMinute > minute) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static Date addMonthByOne(Date date, int months)
     {
         Calendar cal = Calendar.getInstance();

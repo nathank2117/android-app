@@ -25,6 +25,7 @@ public class PaymentUtil {
     public PaymentDetails generatePaymentDetails(String paymentMode, boolean allowFutureUse) {
         PaymentDetails paymentDetails = new PaymentDetails();
         Store test = loginRepository.getCustomerEntity().getStore();
+        System.out.println("SHOPPING_CART : BEFORE" );
         if (loginRepository.getCustomerEntity().getStore().getChargeMode().equalsIgnoreCase("CUSTOMER") ){
 
             Double grandTotal = Data.getInstance().getGrandTotalAsDouble();
@@ -65,8 +66,13 @@ public class PaymentUtil {
            //Double amt = Data.getInstance().getGrandTotalAsLong() + taxes
             Double grandTotal = Data.getInstance().getGrandTotalAsDouble();
             //nathan : perkz deduction
+            /*
             if(loginRepository.getCustomerEntity().getPerkzRewards().size()>0 && loginRepository.getCustomerEntity().getPerkzRewards().get(0).getClaimedReward()!=null){
                 grandTotal = grandTotal-(loginRepository.getCustomerEntity().getPerkzRewards().get(0).getClaimedReward()-loginRepository.getCustomerEntity().getPerkzRewards().get(0).getPreviousClaim());
+            }
+            */
+            if (loginRepository.reward != null && loginRepository.reward.getClaimedReward() != null) {
+                grandTotal = grandTotal - (loginRepository.reward.getClaimedReward() - loginRepository.reward.getPreviousClaim());
             }
 
             if(loginRepository.getCustomerEntity().getDeliveryCharge()!=null && loginRepository.getCustomerEntity().getDeliveryCharge()>0){
@@ -84,6 +90,7 @@ public class PaymentUtil {
         paymentDetails.setCustomerId(loginRepository.getCustomerEntity().getCustomerId());
         paymentDetails.setPaymentMode(paymentMode);
         paymentDetails.setAllowFutureUse(allowFutureUse);
+        System.out.println("SHOPPING_CART : END" );
         return paymentDetails;
     }
 

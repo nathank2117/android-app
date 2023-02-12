@@ -23,6 +23,8 @@ public class PastOrderItem implements Cloneable {
     private String deliveryAddress;
 
 
+    private String tableNumber;
+
     private ArrayList<PastOrderDetailItem> details = new ArrayList<>();
 
     public int getOrderId() {
@@ -177,4 +179,13 @@ public class PastOrderItem implements Cloneable {
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
     }
+    public String getTableNumber() {
+        return tableNumber;
+    }
+
+    public void setTableNumber(String tableNumber) {
+        this.tableNumber = tableNumber;
+    }
+
+
 }

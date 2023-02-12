@@ -140,7 +140,8 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
-            termsLink.setClickable(false);
+        termsLink
+                .setClickable(false);
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Terms & Conditions");
             WebView wv = new WebView(this);

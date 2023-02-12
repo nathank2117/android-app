@@ -13,4 +13,17 @@ public class AppSettings {
     public void setSettings(List<Setting> settings) {
         this.settings = settings;
     }
+
+    public String getSettingValueByKey(String key) {
+        if (settings == null) {
+            return null;
+        }
+        for(Setting setting : settings){
+            if(setting.getKey().equals(key)){
+              return setting.getValue();
+            }
+        }
+        return null;
+    }
+
 }

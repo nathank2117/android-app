@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.appisoft.perkz">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -21,33 +26,58 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name="com.appisoft.iperkz.activity.IperkzHomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+<!--
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+        -->
+        <activity
+            android:name="com.appisoft.iperkz.activity.IperkzHomeActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.appisoft.iperkz.activity.RegistrationNewActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_stores_screen">
-        </activity>
+        <activity
+            android:name="com.appisoft.iperkz.activity.RegistrationNewActivity"
+            android:exported="true"
+            android:label="@string/title_stores_screen"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name="com.appisoft.iperkz.activity.PaymentActivity"
-            android:label="@string/title_activity_payment"
-            >
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.appisoft.iperkz.activity.ViewCartActivity" />
+            android:exported="true"
+            android:label="@string/title_activity_payment">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.appisoft.iperkz.activity.ViewCartActivity" />
         </activity>
         <activity
             android:name="com.appisoft.iperkz.activity.OrdersHistoryActivity"
+            android:exported="true"
             android:label="Orders List - Last 10" />
-        <activity android:name="com.appisoft.iperkz.activity.AccountActivity" />
+        <activity
+            android:name="com.appisoft.iperkz.activity.AccountActivity"
+            android:exported="true" />
 
-        <receiver android:name="com.appisoft.iperkz.firebase.UninstallIntentReceiver">
+        <receiver
+            android:name="com.appisoft.iperkz.firebase.UninstallIntentReceiver"
+            android:exported="true">
             <intent-filter android:priority="0">
                 <action android:name="android.intent.action.QUERY_PACKAGE_RESTART" />
 
@@ -62,14 +92,19 @@
             android:value="false" /> <!-- [END fcm_disable_auto_init] -->
         <activity
             android:name="com.appisoft.iperkz.activity.ui.login.OtpActivity"
+            android:exported="true"
             android:label="" />
         <activity
             android:name="com.appisoft.iperkz.activity.ui.login.ValidateOtp"
+            android:exported="true"
             android:label="@string/title_activity_validate" />
         <activity
             android:name="com.appisoft.iperkz.activity.RegistrationActivity"
+            android:exported="true"
             android:label="@string/title_activity_registration" />
-        <activity android:name="com.appisoft.iperkz.activity.MenuDetailsActivity"
+        <activity
+            android:name="com.appisoft.iperkz.activity.MenuDetailsActivity"
+            android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -81,14 +116,16 @@
         <activity
             android:name="com.appisoft.iperkz.activity.ViewCartActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
             android:label="@string/title_activity_view_cart"
-            android:theme="@style/AppTheme.NoActionBar"
-           >
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DisplayMessageActivity" />
         </activity>
-        <activity android:name="com.appisoft.iperkz.activity.SearchableActivity">
+        <activity
+            android:name="com.appisoft.iperkz.activity.SearchableActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -100,18 +137,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DisplayMessageActivity" />
         </activity>
-        <activity android:name=".DisplayMessageActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
-
-        </activity>
+        <activity
+            android:name=".DisplayMessageActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" /> <!-- [START firebase_service] -->
         <service
             android:name="com.appisoft.iperkz.firebase.FirebaseService"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

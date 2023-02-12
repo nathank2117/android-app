@@ -56,7 +56,7 @@ import com.appisoft.iperkz.entity.AppSettings;
 import com.appisoft.iperkz.entity.MenuFilterCriteria;
 import com.appisoft.iperkz.entity.Setting;
 import com.appisoft.iperkz.entity.UserLocation;
-import com.appisoft.iperkz.fragement.InProgressDialog;
+//import com.appisoft.iperkz.fragement.InProgressDialog;
 import com.appisoft.perkz.DisplayMessageActivity;
 import com.appisoft.perkz.MyUrlRequestCallback;
 import com.appisoft.perkz.R;
@@ -103,12 +103,12 @@ public class MenuDetailsActivity extends AppCompatActivity implements BottomNavi
     private ArrayList<Integer> mtTypeId = new ArrayList();
     private String mealType = "";
     private String wallpaper;
-    InProgressDialog builder;
+    //InProgressDialog builder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        builder = new InProgressDialog();
-        builder.setCancelable(false);
+       // builder = new InProgressDialog();
+       // builder.setCancelable(false);
         breakfastSubmenu = loginRepository.getCustomerEntity().getStore().getBreakfastCategories();
         lunchSubmenu = loginRepository.getCustomerEntity().getStore().getLunchCategories();
         dinnerSubmenu = loginRepository.getCustomerEntity().getStore().getDinnerCategories();
@@ -350,6 +350,15 @@ public class MenuDetailsActivity extends AppCompatActivity implements BottomNavi
         };
         searchEditText.addTextChangedListener(afterTextChangedListener);
 
+        LinearLayout linearLayout = findViewById(R.id.vcartfragment);
+        if(!Data.getInstance().getTotalCost().equals("$ 0.00")) {
+            linearLayout.setBackgroundColor(Color.parseColor("#3F51B5"));
+        }
+        else{
+            linearLayout.setBackgroundColor(Color.GRAY);
+        }
+
+        Data.getInstance().recalculateTotalCostWithoutSaving();
 
 
     }
@@ -427,9 +436,9 @@ public class MenuDetailsActivity extends AppCompatActivity implements BottomNavi
         if (isInCache == false ) {
             //nathan
            // showCaryEmptyMessage();
-            builder.show(getSupportFragmentManager(), "test");
+            //builder.show(getSupportFragmentManager(), "test");
             CronetEngine cronetEngine = Cronet.getCronetEngine(this);
-            MenuListServiceRequestCallback menuCallback = new MenuListServiceRequestCallback(recyclerView, builder, this);
+            MenuListServiceRequestCallback menuCallback = new MenuListServiceRequestCallback(recyclerView, this);
             MenuFilterCriteria criteria = new MenuFilterCriteria();
 
             criteria.setMealType(mealType);

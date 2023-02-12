@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 
-public class FoodItem implements Cloneable, Serializable {
+public class FoodItem  implements Cloneable, Serializable {
     private int menuId;
     private String menuCode;
     private int storeId;
@@ -13,7 +13,7 @@ public class FoodItem implements Cloneable, Serializable {
     private String menuItemDesc;
     private Double orgPrice;
     private Double salePrice;
-    private String mealType;
+    private String mealType;  //missing
     private String mealCategory;
     private Timestamp availableStartTime;
     private Timestamp availableEndTime;
@@ -29,7 +29,15 @@ public class FoodItem implements Cloneable, Serializable {
     private boolean isDailySpecial = false;
     private int availableQuantity;
     private boolean quantityApplicable =false;
+    private boolean isPlaceHolder=false;
 
+    public boolean isPlaceHolder() {
+        return isPlaceHolder;
+    }
+
+    public void setPlaceHolder(boolean placeHolder) {
+        isPlaceHolder = placeHolder;
+    }
     public int getMenuId() {
         return menuId;
     }

@@ -598,7 +598,6 @@ public class PaymentActivity extends AppCompatActivity {
                                         true
 
                                 );
-
                         CustomerOrderCreationRequest order = new MenuSelectionToCustomerOrderConverter()
                                 .convert(paymentDetails.getPaymentMode(), paymentDetails.isAllowFutureUse());
                         order.setSpecialInstructions(splInstructions.getText().toString());
@@ -609,10 +608,10 @@ public class PaymentActivity extends AppCompatActivity {
                         loginViewModel.processOfflinePayment(offlinePaymentDetails, PaymentActivity.this);
                     }
                     else {
+
                         paymentDetails = PaymentUtil.getInstance().generatePaymentDetails("CARD",
                                 futureUserCheckBox.isChecked()
                         );
-
                         PaymentMethodCreateParams params = cardInputWidget.getPaymentMethodCreateParams();
                         if (params == null) {
                             payButton.setEnabled(true);
@@ -848,17 +847,35 @@ public class PaymentActivity extends AppCompatActivity {
         SingleDateAndTimePicker dateTimePicker = findViewById(R.id.single_day_picker);
 
         if (loginRepository.getCustomerEntity().getStore().getStoreTypeId() == 4 ) {
-
+            String cutoffTime = "";
+            if ( loginRepository.getAppSettings() != null ) {
+              cutoffTime =  loginRepository.getAppSettings().getSettingValueByKey("cutoff-time");
+                System.out.println("NATHAN ::: PaymentScreen" + cutoffTime);
+            }
             LinearLayout delTextLV = findViewById(R.id.delText);
             delTextLV.setVisibility(View.VISIBLE);
-            dateTimePicker.setDefaultDate(DateUtils.incrementDateByOne(new Date()));
+            //dateTimePicker.setDefaultDate(DateUtils.incrementDateByOne(new Date()));
             dateTimePicker.setDisplayMinutes(false);
             dateTimePicker.setDisplayHours(false);
             dateTimePicker.setDisplayYears(false);
-            dateTimePicker.mustBeOnFuture();
-            dateTimePicker.setMinDate(DateUtils.incrementDateByOne(new Date()));
+           // dateTimePicker.mustBeOnFuture();
+            System.out.println("NATHAN ::: true/false " + DateUtils.isPastCutOffTime(cutoffTime));
+            if (DateUtils.isPastCutOffTime(cutoffTime)) {
+                System.out.println("NATHAN :::  entered increment ");
+                dateTimePicker.setDefaultDate(DateUtils.incrementDateByOne(new Date()));
+                dateTimePicker.setMinDate(DateUtils.incrementDateByOne(new Date()));
+
+
+            } else {
+                //dateTimePicker.setMinDate((new Date()));
+                dateTimePicker.setDefaultDate(new Date());
+                dateTimePicker.setMinDate(new Date());
+                System.out.println("NATHAN :::  DIDNOT entered increment ");
+            }
             dateTimePicker.setMaxDate(DateUtils.addMonthByOne(new Date(), 1));
-            String formattedDate = DateUtils.getFormattedDateAndTime(DateUtils.incrementDateByOne(new Date()));
+            //vidya
+
+            String formattedDate = DateUtils.getFormattedDateAndTime(dateTimePicker.getDate());
             loginRepository.getCustomerEntity().setDeliveryDate(formattedDate);
 
         }
@@ -1190,6 +1207,7 @@ public class PaymentActivity extends AppCompatActivity {
         if (loginRepository.reward != null && loginRepository.reward.getClaimedReward() != null) {
             grandTotal = grandTotal - (loginRepository.reward.getClaimedReward() - loginRepository.reward.getPreviousClaim());
         }
+
         transactionFeeMessg.setText("As per the store owner policy, you will be charged a credit card transaction fee of $" +
                 Util.getFormattedDollarAmt(transactionFee));
         if (loginRepository.getCustomerEntity().getStore().getChargeMode().equalsIgnoreCase("CUSTOMER")) {
@@ -1210,7 +1228,6 @@ public class PaymentActivity extends AppCompatActivity {
             Double grandTotall = Data.getInstance().getGrandTotalAsDouble() + customerTip;
             if (loginRepository.reward != null && loginRepository.reward.getClaimedReward() != null) {
                 grandTotall = grandTotall - (loginRepository.reward.getClaimedReward() - loginRepository.reward.getPreviousClaim());
-
                 prepareTips(grandTotall);
 
                 if(deliveryCharge >0 && deliveryRadioBtn.isChecked()){
@@ -1284,8 +1301,10 @@ public class PaymentActivity extends AppCompatActivity {
                 extraParams.put("setup_future_usage", "on_session");
             }
             ConfirmPaymentIntentParams confirmParams = ConfirmPaymentIntentParams
-                    .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret, null, false, extraParams);
-            stripe = new Stripe(getApplicationContext(), PaymentConfiguration.getInstance(getApplicationContext()).getPublishableKey());
+                    //.createWithPaymentMethodCreateParams(params, paymentIntentClientSecret, null, false, extraParams);
+                 //   .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret);
+            .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret, null, null, null, ConfirmPaymentIntentParams.SetupFutureUsage.OffSession);
+                            stripe = new Stripe(getApplicationContext(), PaymentConfiguration.getInstance(getApplicationContext()).getPublishableKey());
             stripe.confirmPayment(this, confirmParams);
         }
         loginRepository.getCustomerEntity().setAllowCardFutureUse(allowFutureUse);
@@ -1422,6 +1441,7 @@ public class PaymentActivity extends AppCompatActivity {
     private boolean clearCart() {
         Data.getInstance().setSelectedMenuItems(new ArrayList<FoodItem>());
         Data.getInstance().clearTotalCost();
+        Data.getInstance().saveShoppingCartToDisk();
         return true;
     }
 

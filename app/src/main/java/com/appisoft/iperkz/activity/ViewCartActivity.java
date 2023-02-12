@@ -26,6 +26,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -459,6 +460,8 @@ public class ViewCartActivity extends AppCompatActivity {
         });
 
         //loc logic*/
+
+        Data.getInstance().recalculateTotalCostWithoutSaving();
     }
 
     private void processRewards(boolean isChecked) {

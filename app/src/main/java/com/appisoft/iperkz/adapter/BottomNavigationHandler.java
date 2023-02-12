@@ -41,7 +41,7 @@ public class BottomNavigationHandler extends  Object implements BottomNavigation
             }
             Intent intent = new Intent(mainActivity, IperkzHomeActivity.class);
             mainActivity.startActivity(intent);
-            mainActivity.finish();
+           mainActivity.finish();
 
         } else if (R.id.bottomNavigationAccountMenuId == menuItem.getItemId()) {
             if (mainActivity.getLocalClassName().equals(AccountActivity.class.getSimpleName())) {
@@ -63,8 +63,8 @@ public class BottomNavigationHandler extends  Object implements BottomNavigation
             if (mainActivity.getLocalClassName().equals(RegistrationNewActivity.class.getSimpleName())) {
                 return true;
             }
-            Data.getInstance().getSelectedMenuItems().removeAll(Data.getInstance().getSelectedMenuItems());
-            Data.getInstance().refreshTotalCost(0d);
+            //Data.getInstance().getSelectedMenuItems().removeAll(Data.getInstance().getSelectedMenuItems());
+            //Data.getInstance().refreshTotalCost(0d);
             Intent intent = new Intent(mainActivity, RegistrationNewActivity.class);
             mainActivity.startActivity(intent);
             mainActivity.finish();
